@@ -4,6 +4,10 @@ import sass from 'rollup-plugin-sass';
 export default {
     input: 'src/index.jsx',
     name: 'ReactRenderPlugin',
+    globals: {
+        'react': 'React',
+        'react-dom': 'ReactDOM'
+    },
     extensions: ['.js', '.jsx'],
     babelPresets: [
         require('@babel/preset-react')
