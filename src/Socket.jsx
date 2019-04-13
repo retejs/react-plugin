@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
+import { kebab } from './utils';
 
 export class Socket extends React.Component {
     createRef = el => {
