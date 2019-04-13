@@ -1,0 +1,14 @@
+{
+  "extends": [
+    "./node_modules/rete-cli/.eslintrc",
+    "plugin:react/recommended"
+  ],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "plugins": [
+    "react"
+  ]
+}
