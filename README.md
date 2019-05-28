@@ -72,6 +72,18 @@ export class MyNode extends Node {
 }
 
 editor.use(ReactRenderPlugin, {
-    component: MyNode
+    component: MyNode // common custom React component
 }
 ```
+
+Component specific custom node:
+```js
+class AddComponent extends Rete.Component {
+  constructor() {
+    super("Add");
+    this.data.component = MyNode;
+  }
+  ...
+```
+
+[Example](https://codesandbox.io/s/retejs-react-render-t899c)
