@@ -5,9 +5,10 @@ import { Node } from './Node';
 function install(editor, { component: NodeComponent = Node }) {
     editor.on('rendernode', ({ el, node, component, bindSocket, bindControl }) => {
         if (component.render && component.render !== 'react') return;
+        const Component = component.component || NodeComponent;
 
         node.update = () => new Promise((res) => {
-            ReactDOM.render(<NodeComponent node={node} editor={editor} bindSocket={bindSocket} bindControl={bindControl} />, el, res)
+            ReactDOM.render(<Component node={node} editor={editor} bindSocket={bindSocket} bindControl={bindControl} />, el, res)
         });
         node._reactComponent = true;
         node.update();
