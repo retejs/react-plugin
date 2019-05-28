@@ -16,10 +16,9 @@ function install(editor, { component: NodeComponent = Node }) {
     editor.on('rendercontrol', ({ el, control }) => {
         if (control.render && control.render !== 'react') return;
         const Component = control.component;
-        const props = { ...control.props, putData: control.putData.bind(control), getData: control.getData.bind(control) }
 
         control.update = () => new Promise((res) => {
-            ReactDOM.render(<Component {...props} />, el, res)
+            ReactDOM.render(<Component {...control.props} />, el, res)
         });
         control.update();
     });
