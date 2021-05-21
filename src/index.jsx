@@ -2,11 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Node } from './Node';
 
-function install(editor, { component: NodeComponent = Node, doInsertDefaultNodeStyles = true }) {
-    if(doInsertDefaultNodeStyles === true) {
-        require('./styles.sass');
-    }
-
+function install(editor, { component: NodeComponent = Node}) {
     editor.on('rendernode', ({ el, node, component, bindSocket, bindControl }) => {
         if (component.render && component.render !== 'react') return;
         const Component = component.component || NodeComponent;
