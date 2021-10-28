@@ -23,7 +23,8 @@ export interface SocketProps {
     type: string,
     socket: Rete.Socket,
     io: Rete.IO,
-    innerRef: bindSocket
+    innerRef: bindSocket,
+    cssStyle?: React.CSSProperties
 }
 
 export interface ControlProps {

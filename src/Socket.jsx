@@ -14,6 +14,7 @@ export class Socket extends React.Component {
 
         return (
             <div
+                style={this.props.cssStyle}
                 className={`socket ${type} ${kebab(socket.name)}`}
                 title={socket.name}
                 ref={el => this.createRef(el)} // force update for new IO with a same key 
