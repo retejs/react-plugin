@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Node } from './Node';
+import * as Rete from 'rete';
 
 function install(editor, { component: NodeComponent = Node }) {
     editor.on('rendernode', ({ el, node, component, bindSocket, bindControl }) => {
@@ -33,6 +34,13 @@ function install(editor, { component: NodeComponent = Node }) {
         editor.nodes.filter(n => n._reactComponent).map(node => node.update());
     });
 }
+
+class ReteReactControl extends Rete.Control {};
+class ReteReactComponent extends Rete.Component {};
+export { 
+    ReteReactComponent, 
+    ReteReactControl 
+};
 
 export { Node } from './Node';
 export { Socket } from './Socket';
