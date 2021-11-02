@@ -53,7 +53,7 @@ rete react plugin implementation of rete control
 - `component` must be set as the react component to render
 - `props` must be the props passed to react component
 */
-export abstract class ReteReactControl extends Rete.Control {
+export declare abstract class ReteReactControl extends Rete.Control {
   props: any;
   update?: () => Promise<void>; // update() is declared at load time by rete react render plugin implementation
   render?: "react"; // render should be set to "react" or left as undefined for react render plugin
@@ -67,9 +67,7 @@ rete react plugin implementation of rete component
 export interface DataObject {
   component?: typeof React.Component
 }
-export abstract class ReteReactComponent extends Rete.Component {
-  // update() is declared at load time by rete react render plugin implementation
-  update?: () => Promise<void>; 
+export declare abstract class ReteReactComponent extends Rete.Component {
   render?: "react";
   /** 
    * "data" property passed to renderer by rete
