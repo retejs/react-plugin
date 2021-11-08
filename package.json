@@ -15,8 +15,8 @@
   "author": "",
   "license": "ISC",
   "peerDependencies": {
-    "react-dom": "^16.8.6",
-    "react": "^16.8.6",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "rete": "^1.4.5"
   },
   "devDependencies": {
