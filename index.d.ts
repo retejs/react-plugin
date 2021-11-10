@@ -77,11 +77,10 @@ export declare abstract class ReteReactComponent extends Rete.Component {
 }
 
 
-type InstallOptions = {
-  component?: typeof Node
-}
 export interface ReactRenderPlugin extends RetePlugin {
-  install: (editor: Rete.NodeEditor, options: InstallOptions) => void
+  install: (editor: Rete.NodeEditor, options: {
+    component?: typeof Node
+  }) => void
 }
 declare const _default: ReactRenderPlugin;
 export default _default;
