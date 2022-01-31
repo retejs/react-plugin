@@ -10,8 +10,7 @@
     "build:dev": "rete --build rete.config.js --watch",
     "prepublishOnly": "npm run build",
     "prebuild": "npm run lint",
-    "lint": "eslint --ext .jsx --ext .js src",
-    "prepare": "npm run build"
+    "lint": "eslint --ext .jsx --ext .js src"
   },
   "author": "",
   "license": "ISC",
