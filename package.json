@@ -14,11 +14,10 @@
   },
   "author": "",
   "license": "ISC",
-  "peerDependencies": {
-    "react-dom": "^16.8.6"
-  },
   "devDependencies": {
     "@babel/preset-react": "^7.0.0",
+    "@types/react": "^17.0.38",
+    "@types/react-dom": "^17.0.11",
     "babel-eslint": "^10.0.1",
     "eslint": "^5.14.1",
     "eslint-plugin-react": "^7.12.4",
@@ -28,8 +27,8 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.16.0",
-    "@types/react": "^17.0.33",
-    "react": "^16.14.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "rete": "^1.4.5"
   }
 }
