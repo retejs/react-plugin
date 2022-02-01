@@ -307,8 +307,8 @@ function (_React$Component) {
 }(React.Component);
 
 /*!
-* rete v1.4.5 
-* (c) 2021 Vitaliy Stoliarov 
+* rete v1.4.6-rc.1 
+* (c) 2022 Vitaliy Stoliarov 
 * Released under the MIT license.
 */
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
