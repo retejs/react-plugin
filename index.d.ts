@@ -60,21 +60,23 @@ export declare abstract class ReteReactControl extends Rete.Control {
   abstract component: typeof React.Component; // "component" React property used to render Control with "props" variable
 }
 
+
 /*
 rete react plugin implementation of rete component
 - "data" has an optional "component" attribute used to render
 */
 export interface DataObject {
-  component?: typeof React.Component
+  component?: typeof React.Component;
+  render?: "react";
 }
 export declare abstract class ReteReactComponent extends Rete.Component {
-  render?: "react";
   /** 
    * "data" property passed to renderer by rete
    * react renderer uses "component" if not null for rendering
    * */ 
   abstract data: DataObject;
 }
+
 
 
 export interface ReactRenderPlugin extends RetePlugin {

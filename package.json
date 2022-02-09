@@ -26,8 +26,6 @@
     "babel-eslint": "^10.0.1",
     "eslint": "^5.14.1",
     "eslint-plugin-react": "^7.12.4",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
     "rete": "^1.4.6-rc.1",
     "rete-cli": "0.6.0-rc.5",
     "rollup-plugin-replace": "^2.2.0",
