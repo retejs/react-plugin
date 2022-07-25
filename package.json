@@ -14,8 +14,9 @@
   "author": "",
   "license": "ISC",
   "peerDependencies": {
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "react": "^16.8.6 || ^17 || ^18",
+    "react-dom": "^16.8.6 || ^17 || ^18",
+    "rete": "^1.4.9"
   },
   "devDependencies": {
     "@babel/preset-react": "^7.0.0",

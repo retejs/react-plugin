@@ -8,6 +8,14 @@ import ReactRenderPlugin from 'rete-react-render-plugin';
 editor.use(ReactRenderPlugin);
 ```
 
+Use with React.js v18
+```js
+import { createRoot } from 'react-dom/client';
+import ReactRenderPlugin from 'rete-react-render-plugin';
+
+editor.use(ReactRenderPlugin, { createRoot });
+```
+
 Create control:
 ```jsx
 class MyReactControl extends React.Component {
@@ -34,7 +42,7 @@ class MyControl extends Rete.Control {
 }
 ```
 
-Customize node: 
+Customize node:
 ```jsx
 import ReactRenderPlugin, { Node, Socket, Control } from 'rete-react-render-plugin';
 

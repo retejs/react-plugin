@@ -2,13 +2,21 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Node } from './Node';
 
-function install(editor, { component: NodeComponent = Node }) {
+function install(editor, { component: NodeComponent = Node, createRoot }) {
+    const roots = new Map()
+    const render = createRoot ? (element, container) => {
+        if (!roots.has(container)) roots.set(container, createRoot(container))
+        const root = roots.get(container)
+
+        root.render(element)
+    } : ReactDOM.render
+
     editor.on('rendernode', ({ el, node, component, bindSocket, bindControl }) => {
         if (component.render && component.render !== 'react') return;
         const Component = component.component || NodeComponent;
 
         node.update = () => new Promise((res) => {
-            ReactDOM.render(<Component node={node} editor={editor} bindSocket={bindSocket} bindControl={bindControl} />, el, res)
+            render(<Component node={node} editor={editor} bindSocket={bindSocket} bindControl={bindControl} />, el, res)
         });
         node._reactComponent = true;
         node.update();
@@ -19,7 +27,7 @@ function install(editor, { component: NodeComponent = Node }) {
         const Component = control.component;
 
         control.update = () => new Promise((res) => {
-            ReactDOM.render(<Component {...control.props} />, el, res)
+            render(<Component {...control.props} />, el, res)
         });
         control.update();
     });
