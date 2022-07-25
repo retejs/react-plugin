@@ -1,6 +1,6 @@
 {
   "name": "rete-react-render-plugin",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "",
   "main": "build/react-render-plugin.common.js",
   "module": "build/react-render-plugin.esm.js",
