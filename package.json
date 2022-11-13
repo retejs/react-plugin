@@ -8,7 +8,6 @@
   "scripts": {
     "build": "rete build -c rete.config.ts",
     "build:dev": "rete build -c rete.config.ts --watch",
-    "build:inject": "rete build -c rete.config.ts --watch --output ../playground/node_modules/rete-react-render-plugin",
     "prepublishOnly": "npm run build",
     "lint": "rete lint"
   },
@@ -18,15 +17,25 @@
     "react": "^16.8.6 || ^17 || ^18",
     "react-dom": "^16.8.6 || ^17 || ^18",
     "rete": "file:../rete/rete-2.0.0-beta.1.tgz",
-    "rete-area-plugin": "file:../area-plugin/rete-area-plugin-0.2.1.tgz"
+    "rete-area-plugin": "file:../area-plugin/rete-area-plugin-0.2.1.tgz",
+    "styled-components": "^5.3.6"
   },
   "devDependencies": {
-    "@babel/preset-react": "^7.0.0",
+    "@babel/preset-react": "^7.18.6",
+    "@rollup/plugin-commonjs": "^23.0.2",
+    "@types/react": "^18.0.21",
+    "@types/react-dom": "^18.0.6",
+    "@types/styled-components": "^5.1.26",
     "eslint-plugin-react": "^7.12.4",
-    "rete-cli": "^1.0.0-beta.8",
+    "react": "^18.2.0",
+    "rete": "file:../rete/rete-2.0.0-beta.1.tgz",
+    "rete-area-plugin": "file:../area-plugin/rete-area-plugin-0.2.1.tgz",
+    "rete-cli": "^1.0.0-beta.12",
     "rollup-plugin-replace": "^2.2.0",
     "rollup-plugin-sass": "^1.2.2",
-    "rete": "file:../rete/rete-2.0.0-beta.1.tgz",
-    "rete-area-plugin": "file:../area-plugin/rete-area-plugin-0.2.1.tgz"
+    "styled-components": "^5.3.6"
+  },
+  "dependencies": {
+    "rete-render-utils": "file:../render-utils/rete-render-utils-0.1.0.tgz"
   }
 }
