@@ -67,11 +67,24 @@ const NodeStyles = styled.div<{ selected: boolean }>`
     }
 `
 
+function sortByIndex<T extends [string, undefined | { index?: number }][]>(entries: T) {
+    entries.sort((a, b) => {
+        const ai = a[1]?.index || 0
+        const bi = b[1]?.index || 0
+
+        return ai - bi
+    })
+}
+
 export function Node<Data extends ClassicPreset.Node>(props: { data: Data, emit: RenderEmit<ClassicScheme> }) {
     const inputs = Object.entries(props.data.inputs)
     const outputs = Object.entries(props.data.outputs)
     const controls = Object.entries(props.data.controls)
     const selected = props.data.selected || false
+
+    sortByIndex(inputs)
+    sortByIndex(outputs)
+    sortByIndex(controls)
 
     return (
         <NodeStyles selected={selected}>

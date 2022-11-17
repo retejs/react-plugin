@@ -49,7 +49,6 @@ export class ReactRenderPlugin<Schemes extends BaseSchemes,T extends ExtraRender
         const parent = this.getParentScope()
 
         for (const preset of this.presets) {
-
             const result = preset.render(context, this)
 
             if (!result) continue
