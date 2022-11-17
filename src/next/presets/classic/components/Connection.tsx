@@ -8,7 +8,6 @@ import { useConnection } from './ConnectionWrapper'
 const Svg = styled.svg`
     overflow: visible !important;
     position: absolute;
-    z-index: -1;
     pointer-events: none;
     width: 9999px;
     height: 9999px;
