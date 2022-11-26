@@ -1,9 +1,9 @@
 import * as React from 'react'
-import { ClassicPreset } from 'rete'
+import { CanAssignSignal, ClassicPreset } from 'rete'
 import { AreaPlugin } from 'rete-area-plugin'
 import { SocketPositionWatcher, useDOMSocketPosition } from 'rete-render-utils'
 
-import { ClassicScheme, ExtractPayload, ReactArea2D } from '../../types'
+import { ClassicScheme, ExtractPayload, ReactArea2D, RenderPayload } from '../../types'
 import { RenderPreset } from '../types'
 import { Connection } from './components/Connection'
 import { ConnectionWrapper } from './components/ConnectionWrapper'
@@ -24,31 +24,35 @@ type CustomizationProps <Schemes extends ClassicScheme>= {
         => ((props: { data: N }) => React.ReactElement<{ data: N }>) | null
 }
 
-type ClasssicProps<Schemes extends ClassicScheme> = (
+type IsCompatible<K> = Extract<K, { type: 'render' }> extends { type: 'render', data: infer P } ? CanAssignSignal<P, RenderPayload<ClassicScheme>> : false // TODO should add type: 'render' ??
+type Substitute<K, Schemes extends ClassicScheme> = IsCompatible<K> extends true ? K : ReactArea2D<Schemes>
+
+type ClasssicProps<Schemes extends ClassicScheme, K> = (
   | { socketPositionWatcher: SocketPositionWatcher }
-  | { area: AreaPlugin<Schemes, ReactArea2D<Schemes>> }
+  | { area: AreaPlugin<Schemes, Substitute<K, Schemes>> }
 ) & {
     customize?: CustomizationProps<Schemes>
 }
 
-export function setup<Schemes extends ClassicScheme>(
-    props: ClasssicProps<Schemes>
+export function setup<Schemes extends ClassicScheme, K>(
+    props: ClasssicProps<Schemes, K>
 ): RenderPreset<Schemes, ReactArea2D<Schemes>> {
     const positionWatcher = 'socketPositionWatcher' in props
         ? props.socketPositionWatcher
-        : useDOMSocketPosition(props.area)
+        : useDOMSocketPosition(props.area as AreaPlugin<Schemes, ReactArea2D<Schemes>>)
     const { node, connection, socket, control } = props.customize || {}
 
     return {
         // eslint-disable-next-line max-statements
         render(context, plugin) {
             if (context.data.type === 'node') {
+                const parent = plugin.getParentScope()
                 const Component = node ? node(context.data) : Node
 
                 return (Component &&
                     <Component
                         data={context.data.payload}
-                        emit={data => plugin.getParentScope().emit(data)}
+                        emit={data => parent.emit(data)}
                     />
                 )
             } else if (context.data.type === 'connection') {
