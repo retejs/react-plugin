@@ -1,18 +1,20 @@
 import * as React from 'react'
-import { ClassicPreset } from 'rete'
 import styled, { css } from 'styled-components'
 
 import { RefComponent } from '../../../ref-component'
-import { ClassicScheme, RenderEmit } from '../../../types'
+import { ClassicScheme, GetControls, GetSockets, RenderEmit } from '../../../types'
 import { $nodecolor, $nodecolorselected, $nodewidth, $socketmargin, $socketsize } from '../vars'
 
-const NodeStyles = styled.div<{ selected: boolean }>`
+type NodeExtraData = { width?: number, height?: number }
+
+const NodeStyles = styled.div<NodeExtraData & { selected: boolean }>`
     background: ${$nodecolor};
     border: 2px solid #4e58bf;
     border-radius: 10px;
     cursor: pointer;
     min-width: ${$nodewidth}px;
-    height: auto;
+    width: ${props => Number.isFinite(props.width) ? `${props.width}px` : 'auto'};
+    height: ${props => Number.isFinite(props.height) ? `${props.height}px` : 'auto'};
     padding-bottom: 6px;
     box-sizing: content-box;
     position: relative;
@@ -76,7 +78,11 @@ function sortByIndex<T extends [string, undefined | { index?: number }][]>(entri
     })
 }
 
-export function Node<Data extends ClassicPreset.Node>(props: { data: Data, emit: RenderEmit<ClassicScheme> }) {
+type Props<S extends ClassicScheme> = { data: S['Node'] & NodeExtraData, emit: RenderEmit<S> }
+export type NodeComponent<Scheme extends ClassicScheme> = (props: Props<Scheme>) => JSX.Element
+
+// eslint-disable-next-line max-statements
+export function Node<Scheme extends ClassicScheme>(props: Props<Scheme>) {
     const inputs = Object.entries(props.data.inputs)
     const outputs = Object.entries(props.data.outputs)
     const controls = Object.entries(props.data.controls)
@@ -87,7 +93,7 @@ export function Node<Data extends ClassicPreset.Node>(props: { data: Data, emit:
     sortByIndex(controls)
 
     return (
-        <NodeStyles selected={selected}>
+        <NodeStyles selected={selected} width={props.data.width} height={props.data.height}>
             <div className="title">{props.data.label}</div>
             {/* Outputs */}
             {outputs.map(([key, output]) => (
@@ -101,7 +107,7 @@ export function Node<Data extends ClassicPreset.Node>(props: { data: Data, emit:
                             key: key,
                             nodeId: props.data.id,
                             element: ref,
-                            payload: output.socket
+                            payload: output.socket as GetSockets<Scheme['Node']>
                         } })}
                     />
                 </div>
@@ -114,7 +120,7 @@ export function Node<Data extends ClassicPreset.Node>(props: { data: Data, emit:
                     init={ref => props.emit({ type: 'render', data: {
                         type: 'control',
                         element: ref,
-                        payload: control
+                        payload: control as GetControls<Scheme['Node']>
                     } })}
                 />
             })}
@@ -129,7 +135,7 @@ export function Node<Data extends ClassicPreset.Node>(props: { data: Data, emit:
                             key: key,
                             nodeId: props.data.id,
                             element: ref,
-                            payload: input.socket
+                            payload: input.socket as GetSockets<Scheme['Node']>
                         } })}
                     />
                     {input && (!input.control || !input.showControl) && <div className="input-title">{input?.label}</div>}
@@ -139,7 +145,7 @@ export function Node<Data extends ClassicPreset.Node>(props: { data: Data, emit:
                             init={ref => input.control && props.emit({ type: 'render', data: {
                                 type: 'control',
                                 element: ref,
-                                payload: input.control
+                                payload: input.control as GetControls<Scheme['Node']>
                             } })}
                         />
                     </span>
