@@ -4,11 +4,11 @@ import { RenderData } from 'rete-area-plugin'
 type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends ((k: infer I)=> void)
   ? I
   : never
-type GetControls<
+export type GetControls<
   T extends ClassicScheme['Node'],
   Intersection = UnionToIntersection<T['controls']>
 > = Intersection[keyof Intersection] extends Classic.Control ? Intersection[keyof Intersection] : Classic.Control
-type GetSockets<
+export type GetSockets<
   T extends ClassicScheme['Node'],
   Intersection = UnionToIntersection<T['inputs'] | T['outputs']>,
   Union = Exclude<Intersection[keyof Intersection], undefined>
