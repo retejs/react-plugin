@@ -46,7 +46,7 @@ export function setup<Schemes extends ClassicScheme, K>(
         // eslint-disable-next-line max-statements
         render(context, plugin) {
             if (context.data.type === 'node') {
-                const parent = plugin.getParentScope()
+                const parent = plugin.parentScope()
                 const Component = node ? node(context.data) : Node
 
                 return (Component &&

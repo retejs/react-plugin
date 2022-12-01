@@ -46,7 +46,7 @@ export class ReactRenderPlugin<Schemes extends BaseSchemes,T extends ExtraRender
     }
 
     private mount(element: HTMLElement, context: T) {
-        const parent = this.getParentScope()
+        const parent = this.parentScope()
 
         for (const preset of this.presets) {
             const result = preset.render(context, this)
@@ -54,7 +54,7 @@ export class ReactRenderPlugin<Schemes extends BaseSchemes,T extends ExtraRender
             if (!result) continue
 
             const reactElement = (
-                <Root rendered={() => parent?.emit({ type: 'rendered', data: context.data })}>
+                <Root rendered={() => parent.emit({ type: 'rendered', data: context.data })}>
                     {result}
                 </Root>
             )
@@ -66,14 +66,6 @@ export class ReactRenderPlugin<Schemes extends BaseSchemes,T extends ExtraRender
 
     private unmount(element: HTMLElement) {
         this.renderer.unmount(element)
-    }
-
-    public getParentScope() {
-        const parent = super.parentScope()
-
-        if (!parent) throw new Error('parent scope not found')
-
-        return parent
     }
 
     public addPreset(preset: RenderPreset<Schemes, T | { type: 'render', data: RenderData<Schemes> }>) {
