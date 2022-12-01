@@ -42,6 +42,7 @@
   },
   "dependencies": {
     "lodash": "^4.17.21",
-    "rete-render-utils": "file:../render-utils/rete-render-utils-0.1.0.tgz"
+    "rete-render-utils": "file:../render-utils/rete-render-utils-0.1.0.tgz",
+    "usehooks-ts": "^2.9.1"
   }
 }
