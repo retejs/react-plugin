@@ -11,7 +11,6 @@ const Styles = styled.div`
     border-radius: ${$socketsize/2.0}px;
     width: ${$socketsize}px;
     height: ${$socketsize}px;
-    margin: ${$socketmargin}px;
     vertical-align: middle;
     background: ${$socketcolor};
     z-index: 2;
@@ -30,8 +29,18 @@ const Styles = styled.div`
     }
 `
 
+const Hoverable = styled.div`
+    border-radius: ${($socketsize + $socketmargin * 2)/2.0}px;
+    padding: ${$socketmargin}px;
+    &:hover ${Styles} {
+      border-width: 4px;
+    }
+`
+
 export function Socket<T extends ClassicPreset.Socket>(props: { data: T }) {
     return (
+        <Hoverable>
         <Styles title={props.data.name} />
+        </Hoverable>
     )
 }
