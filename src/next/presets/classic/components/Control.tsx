@@ -25,6 +25,7 @@ export function Control<N extends 'text' | 'number', T extends ClassicPreset.Inp
             value={value}
             type={props.data.type}
             onPointerDown={e => e.stopPropagation()}
+            readOnly={props.data.readonly}
             onChange={e => {
                 const val = (props.data.type === 'number'
                     ? +e.target.value
