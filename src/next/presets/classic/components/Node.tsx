@@ -7,7 +7,7 @@ import { $nodecolor, $nodecolorselected, $nodewidth, $socketmargin, $socketsize 
 
 type NodeExtraData = { width?: number, height?: number }
 
-const NodeStyles = styled.div<NodeExtraData & { selected: boolean }>`
+const NodeStyles = styled.div<NodeExtraData & { selected: boolean, styles?: (props: any) => any }>`
     background: ${$nodecolor};
     border: 2px solid #4e58bf;
     border-radius: 10px;
@@ -67,6 +67,7 @@ const NodeStyles = styled.div<NodeExtraData & { selected: boolean }>`
         display: block;
         padding: ${$socketmargin}px ${$socketsize / 2 + $socketmargin}px;
     }
+    ${props => props.styles && props.styles(props)}
 `
 
 function sortByIndex<T extends [string, undefined | { index?: number }][]>(entries: T) {
@@ -78,7 +79,11 @@ function sortByIndex<T extends [string, undefined | { index?: number }][]>(entri
     })
 }
 
-type Props<S extends ClassicScheme> = { data: S['Node'] & NodeExtraData, emit: RenderEmit<S> }
+type Props<S extends ClassicScheme> = {
+    data: S['Node'] & NodeExtraData
+    styles?: () => any
+    emit: RenderEmit<S>
+}
 export type NodeComponent<Scheme extends ClassicScheme> = (props: Props<Scheme>) => JSX.Element
 
 // eslint-disable-next-line max-statements
