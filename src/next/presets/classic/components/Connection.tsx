@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { classicConnectionPath } from 'rete-render-utils'
+import { classicConnectionPath, loopConnectionPath } from 'rete-render-utils'
 import styled from 'styled-components'
 
 import { ClassicScheme } from '../../../types'
@@ -22,12 +22,17 @@ const Path = styled.path`
     stroke: steelblue;
 `
 
-export function Connection(_props: { data: ClassicScheme['Connection'] }) {
+export function Connection(props: { data: ClassicScheme['Connection'] & { isLoop?: boolean } }) {
     const { start, end } = useConnection()
+    const points = start && end && [start.x, start.y, end.x, end.y]
+    const curvature = 0.3
 
-    return start && end && (
+    return points && (
         <Svg>
-            <Path d={classicConnectionPath([start.x, start.y, end.x, end.y], 0.3)} />
+            <Path d={props.data.isLoop
+                ? loopConnectionPath(points, curvature, 120)
+                : classicConnectionPath(points, curvature)
+            } />
         </Svg>
     )
 }
