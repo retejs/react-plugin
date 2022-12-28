@@ -11,15 +11,13 @@ const Svg = styled.svg`
     pointer-events: none;
     width: 9999px;
     height: 9999px;
-    > * {
-        pointer-events: all;
-    }
 `
 
 const Path = styled.path`
     fill: none;
     stroke-width: 5px;
     stroke: steelblue;
+    pointer-events: auto;
 `
 
 export function Connection(props: { data: ClassicScheme['Connection'] & { isLoop?: boolean } }) {
