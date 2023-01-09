@@ -59,13 +59,17 @@ export class ReactRenderPlugin<Schemes extends BaseSchemes,T extends ExtraRender
                 </Root>
             )
 
-            this.renderer.mount(reactElement, element)
+            requestAnimationFrame(() => // TODO stabilization
+                this.renderer.mount(reactElement, element)
+            )
             return true
         }
     }
 
     private unmount(element: HTMLElement) {
-        this.renderer.unmount(element)
+        requestAnimationFrame(() => // TODO stabilization
+            this.renderer.unmount(element)
+        )
     }
 
     public addPreset(preset: RenderPreset<Schemes, T | { type: 'render', data: RenderData<Schemes> }>) {
