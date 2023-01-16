@@ -2,6 +2,7 @@ import * as React from 'react'
 import { createContext, useContext, useEffect, useState } from 'react'
 
 import { Position } from '../../../types'
+import { syncSetter } from '../helpers'
 
 export type ConnectionContextValue = { start: Position | null, end: Position | null }
 
@@ -17,8 +18,11 @@ export function ConnectionWrapper(props: Props) {
     const [end, setEnd] = useState<Position| null>(null)
 
     useEffect(() => {
-        const unwatch1 = typeof props.start === 'function' && props.start(setStart)
-        const unwatch2 = typeof props.end === 'function' && props.end(setEnd)
+        const { apply, ready } = syncSetter()
+        const unwatch1 = typeof props.start === 'function' && props.start(apply(setStart))
+        const unwatch2 = typeof props.end === 'function' && props.end(apply(setEnd))
+
+        ready() // prevent sync flush inside lifecycle
 
         return () => {
             unwatch1 && unwatch1()
