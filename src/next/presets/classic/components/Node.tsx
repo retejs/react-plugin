@@ -98,7 +98,7 @@ export function Node<Scheme extends ClassicScheme>(props: Props<Scheme>) {
     sortByIndex(controls)
 
     return (
-        <NodeStyles selected={selected} width={props.data.width} height={props.data.height}>
+        <NodeStyles selected={selected} width={props.data.width} height={props.data.height} styles={props.styles}>
             <div className="title">{props.data.label}</div>
             {/* Outputs */}
             {outputs.map(([key, output]) => (
