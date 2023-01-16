@@ -12,11 +12,11 @@ const NodeStyles = styled.div<NodeExtraData & { selected: boolean, styles?: (pro
     border: 2px solid #4e58bf;
     border-radius: 10px;
     cursor: pointer;
+    box-sizing: border-box;
     min-width: ${$nodewidth}px;
     width: ${props => Number.isFinite(props.width) ? `${props.width}px` : 'auto'};
     height: ${props => Number.isFinite(props.height) ? `${props.height}px` : 'auto'};
     padding-bottom: 6px;
-    box-sizing: content-box;
     position: relative;
     user-select: none;
     &:hover {
