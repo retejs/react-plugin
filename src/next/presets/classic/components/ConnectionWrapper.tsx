@@ -22,7 +22,7 @@ export function ConnectionWrapper(props: Props) {
         const unwatch1 = typeof props.start === 'function' && props.start(apply(setStart))
         const unwatch2 = typeof props.end === 'function' && props.end(apply(setEnd))
 
-        ready() // prevent sync flush inside lifecycle
+        setTimeout(ready, 5) // prevent sync flush inside lifecycle
 
         return () => {
             unwatch1 && unwatch1()
