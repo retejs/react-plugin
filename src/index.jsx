@@ -37,8 +37,17 @@ function install(editor, { component: NodeComponent = Node, createRoot }) {
         connection.input.node.update();
     });
 
-    editor.on('nodeselected', () => {
-        editor.nodes.filter(n => n._reactComponent).map(node => node.update());
+    let previousSelected = []
+
+    editor.on('nodeselected', (node) => {
+        const selected = [...editor.selected.list]
+
+        previousSelected
+            .filter(n => !selected.includes(n))
+            .filter(n => n._reactComponent)
+            .forEach(n => n.update())
+        if (node._reactComponent) node.update()
+        previousSelected = selected
     });
 }
 
