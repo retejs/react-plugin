@@ -8,7 +8,8 @@ import { ExtraRender } from './types'
 import { Root } from './utils'
 
 export * as Presets from './presets'
-export type { ReactArea2D, RenderPayload } from './types'
+export { RefComponent } from './ref-component'
+export * from './types'
 
 type Props = {
     createRoot?: (container: Element | DocumentFragment) => any
