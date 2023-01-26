@@ -7,7 +7,7 @@ import { $nodecolor, $nodecolorselected, $nodewidth, $socketmargin, $socketsize 
 
 type NodeExtraData = { width?: number, height?: number }
 
-const NodeStyles = styled.div<NodeExtraData & { selected: boolean, styles?: (props: any) => any }>`
+export const NodeStyles = styled.div<NodeExtraData & { selected: boolean, styles?: (props: any) => any }>`
     background: ${$nodecolor};
     border: 2px solid #4e58bf;
     border-radius: 10px;

@@ -13,7 +13,7 @@ import { Socket } from './components/Socket'
 
 export { Connection } from './components/Connection'
 export { Control } from './components/Control'
-export { Node } from './components/Node'
+export { Node, NodeStyles } from './components/Node'
 export { Socket } from './components/Socket'
 
 type CustomizationProps <Schemes extends ClassicScheme>= {
