@@ -4,16 +4,18 @@ import styled from 'styled-components'
 
 import { $nodewidth } from '../vars'
 
-const Input = styled.input`
+const Input = styled.input<{ styles?: (props: any) => any }>`
   width: ${$nodewidth - 50}px;
   border-radius: 30px;
   background-color: white;
   padding: 2px 6px;
   border: 1px solid #999;
   font-size: 110%;
+  box-sizing: border-box;
+  ${props => props.styles && props.styles(props)}
 `
 
-export function Control<N extends 'text' | 'number', T extends ClassicPreset.InputControl<N>>(props: { data: T }) {
+export function Control<N extends 'text' | 'number', T extends ClassicPreset.InputControl<N>>(props: { data: T, styles?: () => any }) {
     const [value, setValue] = React.useState(props.data.value)
 
     React.useEffect(() => {
@@ -34,6 +36,7 @@ export function Control<N extends 'text' | 'number', T extends ClassicPreset.Inp
                 setValue(val)
                 props.data.setValue(val)
             }}
+            styles={props.styles}
         />
     )
 }
