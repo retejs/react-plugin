@@ -2,7 +2,7 @@ import * as React from 'react'
 import styled from 'styled-components'
 import { useElementSize } from 'usehooks-ts'
 
-import { Rect, Translate } from '../types'
+import { Rect, Transform, Translate } from '../types'
 import { px } from '../utils'
 import { MiniNode } from './MiniNode'
 import { MiniViewport } from './MiniViewport'
@@ -19,7 +19,16 @@ const Styles = styled.div<{ size: number }>`
     box-sizing: border-box;
 `
 
-export function Minimap(props: { size: number, ratio: number, nodes: Rect[], viewport: any, translate: Translate }) {
+type Props = {
+    size: number
+    ratio: number
+    nodes: Rect[]
+    viewport: Rect
+    start(): Transform
+    translate: Translate
+}
+
+export function Minimap(props: Props) {
     const [containerRef, { width: containerWidth }] = useElementSize()
     const scale = (v: number) => v * containerWidth
 
@@ -46,6 +55,7 @@ export function Minimap(props: { size: number, ratio: number, nodes: Rect[], vie
         ))}
         <MiniViewport
             {...props.viewport}
+            start={props.start}
             containerWidth={containerWidth}
             translate={props.translate}
         />

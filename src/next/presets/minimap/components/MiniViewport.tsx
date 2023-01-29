@@ -2,7 +2,7 @@ import * as React from 'react'
 import styled from 'styled-components'
 
 import { useDrag } from '../drag'
-// import { Translate } from '../types'
+import { Rect, Transform, Translate } from '../types'
 import { px } from '../utils'
 
 const MiniViewportStyles = styled.div`
@@ -11,11 +11,11 @@ const MiniViewportStyles = styled.div`
   border: 1px solid #ffe52b;
 `
 
-export function MiniViewport(props: any) { //{ containerWidth: number, translate: Translate }) {
+export function MiniViewport(props: Rect & { containerWidth: number, start(): Transform, translate: Translate }) {
     const scale = (v: number) => v * props.containerWidth
     const invert = (v: number) => v / props.containerWidth
     const drag = useDrag(
-        () => ({ ...props.transform }),
+        props.start,
         (dx, dy, initial) => props.translate(invert(dx), invert(dy), initial)
     )
 

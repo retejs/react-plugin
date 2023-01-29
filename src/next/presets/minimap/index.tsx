@@ -15,6 +15,7 @@ export function setup<Schemes extends BaseSchemes>(props?: { size?: number }): R
                     size={props?.size || 200}
                     ratio={context.data.ratio}
                     viewport={context.data.viewport}
+                    start={context.data.start}
                     translate={context.data.translate}
                 />
             }

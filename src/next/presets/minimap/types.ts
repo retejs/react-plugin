@@ -7,14 +7,19 @@ export type Rect = {
   left: number,
   top: number
 }
-
+export type Transform = {
+  x: number
+  y: number
+  k: number
+}
 export type Translate = (dx: number, dy: number, initial: any) => void
 export type MinimapData = {
   type: 'minimap'
   element: HTMLElement
   ratio: number
   nodes: Rect[]
-  viewport: any
+  viewport: Rect
+  start(): Transform
   translate: Translate
 }
 
