@@ -17,6 +17,7 @@ export function setup<Schemes extends BaseSchemes>(props?: { size?: number }): R
                     viewport={context.data.viewport}
                     start={context.data.start}
                     translate={context.data.translate}
+                    point={context.data.point}
                 />
             }
         }

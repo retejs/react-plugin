@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { useCallback, useRef } from 'react'
 import styled from 'styled-components'
 import { useElementSize } from 'usehooks-ts'
 
@@ -26,11 +27,17 @@ type Props = {
     viewport: Rect
     start(): Transform
     translate: Translate
+    point(x: number, y: number): void
 }
 
 export function Minimap(props: Props) {
+    const container = useRef<HTMLElement | null>()
     const [containerRef, { width: containerWidth }] = useElementSize()
     const scale = (v: number) => v * containerWidth
+    const ref = useCallback((node: HTMLDivElement | null) => {
+        container.current = node
+        containerRef(node)
+    }, [containerRef])
 
     return <Styles
         size={props.size}
@@ -42,7 +49,17 @@ export function Minimap(props: Props) {
             e.stopPropagation()
             e.preventDefault()
         }}
-        ref={containerRef}
+        onDoubleClick={e => {
+            e.stopPropagation()
+            e.preventDefault()
+            if (!container.current) return
+            const box = container.current.getBoundingClientRect()
+            const x = (e.clientX - box.left) / (props.size * props.ratio)
+            const y = (e.clientY - box.top) / (props.size * props.ratio)
+
+            props.point(x, y)
+        }}
+        ref={ref}
     >
         {containerWidth && props.nodes.map((node, i) => (
             <MiniNode

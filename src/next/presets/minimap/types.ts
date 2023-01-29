@@ -21,6 +21,7 @@ export type MinimapData = {
   viewport: Rect
   start(): Transform
   translate: Translate
+  point(x: number, y: number): void
 }
 
 export type MinimapRender<Schemes extends BaseSchemes> =
