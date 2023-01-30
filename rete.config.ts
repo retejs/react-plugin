@@ -9,6 +9,7 @@ export default <ReteOptions>{
     globals: {
         'rete': 'Rete',
         'rete-area-plugin': 'ReteAreaPlugin',
+        'rete-render-utils': 'RenderUtils',
         'react': 'React',
         'react-dom': 'ReactDOM',
         'styled-components': 'styled'
