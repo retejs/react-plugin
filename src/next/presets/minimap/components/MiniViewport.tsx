@@ -1,7 +1,7 @@
 import * as React from 'react'
 import styled from 'styled-components'
 
-import { useDrag } from '../drag'
+import { useDrag } from '../../../shared/drag'
 import { Rect, Transform, Translate } from '../types'
 import { px } from '../utils'
 
