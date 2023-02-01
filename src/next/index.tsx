@@ -4,12 +4,15 @@ import { Area2DInherited, RenderData } from 'rete-area-plugin'
 
 import { RenderPreset } from './presets/types'
 import { getRenderer, Renderer } from './renderer'
-import { ExtraRender } from './types'
+import { ExtraRender, Position } from './types'
 import { Root } from './utils'
 
 export * as Presets from './presets'
 export { RefComponent } from './ref-component'
 export * from './types'
+
+type Produces<Schemes extends BaseSchemes> =
+    | { type: 'connectionpath', data: { payload: Schemes['Connection'], path?: string, points: Position[] } }
 
 type Props = {
     createRoot?: (container: Element | DocumentFragment) => any

@@ -4,18 +4,30 @@ import { createContext, useContext, useEffect, useState } from 'react'
 import { Position } from '../../../types'
 import { syncSetter } from '../helpers'
 
-export type ConnectionContextValue = { start: Position | null, end: Position | null }
+export type ConnectionContextValue = { start: Position | null, end: Position | null, path: null | string }
 
-export const ConnectionContext = createContext<ConnectionContextValue>({ start: null, end: null })
+export const ConnectionContext = createContext<ConnectionContextValue>({
+    start: null,
+    end: null,
+    path: null
+})
 
 type PositionWatcher = (cb: (value: Position) => void) => (() => void)
 
-type Props = { children: JSX.Element, start: Position | PositionWatcher, end: Position | PositionWatcher }
+type Props = {
+    children: JSX.Element,
+    start: Position | PositionWatcher,
+    end: Position | PositionWatcher,
+    path(start: Position, end: Position): Promise<null | string>
+}
 
 export function ConnectionWrapper(props: Props) {
     const { children } = props
-    const [start, setStart] = useState<Position | null>(null)
-    const [end, setEnd] = useState<Position| null>(null)
+    const [computedStart, setStart] = useState<Position | null>(null)
+    const [computedEnd, setEnd] = useState<Position| null>(null)
+    const [path, setPath] = useState<string | null>(null)
+    const start = 'x' in props.start ? props.start : computedStart
+    const end = 'x' in props.end ? props.end : computedEnd
 
     useEffect(() => {
         const { apply, ready } = syncSetter()
@@ -29,12 +41,12 @@ export function ConnectionWrapper(props: Props) {
             unwatch2 && unwatch2()
         }
     }, [])
+    useEffect(() => {
+        if (start && end) props.path(start, end).then(setPath)
+    }, [start, end])
 
     return (
-        <ConnectionContext.Provider value={{
-            start: 'x' in props.start ? props.start : start,
-            end: 'x' in props.end ? props.end : end
-        }}>
+        <ConnectionContext.Provider value={{ start, end, path }}>
             {children}
         </ConnectionContext.Provider>
     )
