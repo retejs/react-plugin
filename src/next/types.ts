@@ -14,7 +14,7 @@ export type GetSockets<
   Union = Exclude<Intersection[keyof Intersection], undefined>
 > = Union extends { socket: any } ? Union['socket'] : Classic.Socket
 
-export type ClassicScheme = GetSchemes<Classic.Node, Classic.Connection<Classic.Node, Classic.Node>>
+export type ClassicScheme = GetSchemes<Classic.Node, Classic.Connection<Classic.Node, Classic.Node> & { isLoop?: boolean }>
 
 export type Side = 'input' | 'output'
 export type ReactRenderData<T extends ClassicScheme> =
@@ -42,4 +42,4 @@ export type RenderEmit<T extends ClassicScheme> = (props: ReactArea2D<T>) => voi
 
 export type Position = { x: number, y: number }
 
-export type ExtraRender = { type: 'render', data: any } | { type: 'rendered', data: any }
+export type ExtraRender = { type: 'render', data: any } | { type: 'rendered', data: any } | { type: 'unmount', data: any }
