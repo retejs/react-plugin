@@ -1,17 +1,18 @@
-type Translate<T> = (dx: number, dy: number, initial: T) => void
+type Translate = (dx: number, dy: number) => void
 type StartEvent = { pageX: number, pageY: number }
 
-export function useDrag<T>(getInitial: () => T, translate: Translate<T>) {
+export function useDrag(translate: Translate) {
     return {
         start(e: StartEvent) {
-            const start= { x: e.pageX, y: e.pageY }
-            const initial = getInitial()
+            let previous = { x: e.pageX, y: e.pageY }
 
             function move(moveEvent: PointerEvent) {
-                const dx = start.x - moveEvent.pageX
-                const dy = start.y - moveEvent.pageY
+                const dx = moveEvent.pageX - previous.x
+                const dy = moveEvent.pageY - previous.y
 
-                translate(dx, dy, initial)
+                previous = { x: moveEvent.pageX, y: moveEvent.pageY }
+
+                translate(dx, dy)
             }
             function up() {
                 window.removeEventListener('pointermove', move)

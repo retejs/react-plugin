@@ -12,7 +12,7 @@ export type Transform = {
   y: number
   k: number
 }
-export type Translate = (dx: number, dy: number, initial: any) => void
+export type Translate = (dx: number, dy: number) => void
 export type MinimapData = {
   type: 'minimap'
   element: HTMLElement
