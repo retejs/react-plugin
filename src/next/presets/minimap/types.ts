@@ -25,5 +25,6 @@ export type MinimapData = {
 }
 
 export type MinimapRender<Schemes extends BaseSchemes> =
+  | { type: 'unmount', data: { element: HTMLElement } }
   | { type: 'render', data: RenderData<Schemes> | MinimapData }
   | { type: 'rendered', data: RenderData<Schemes> | MinimapData }

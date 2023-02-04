@@ -6,7 +6,7 @@ import { RenderPreset } from '../types'
 import { Minimap } from './components/Minimap'
 import { MinimapRender } from './types'
 
-export function setup<Schemes extends BaseSchemes>(props?: { size?: number }): RenderPreset<Schemes, MinimapRender<Schemes>> {
+export function setup<Schemes extends BaseSchemes, K extends MinimapRender<Schemes>>(props?: { size?: number }): RenderPreset<Schemes, K> {
     return {
         render(context) {
             if (context.data.type === 'minimap') {

@@ -10,10 +10,12 @@ export type Item = {
 
 export type ContextMenuData = {
   type: 'contextmenu'
+  element: HTMLElement
   items: Item[]
-  searchBar?: boolean
   onHide(): void
+  searchBar?: boolean
 }
 export type ContextMenuRender<Schemes extends BaseSchemes> =
+  | { type: 'unmount', data: { element: HTMLElement } }
   | { type: 'render', data: RenderData<Schemes> | ContextMenuData }
   | { type: 'rendered', data: RenderData<Schemes> | ContextMenuData }

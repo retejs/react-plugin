@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { BaseSchemes, Scope } from 'rete'
-import { Area2DInherited, RenderData } from 'rete-area-plugin'
+import { Area2DInherited } from 'rete-area-plugin'
 
 import { RenderPreset } from './presets/types'
 import { getRenderer, Renderer } from './renderer'
@@ -18,7 +18,7 @@ type Props = {
     createRoot?: (container: Element | DocumentFragment) => any
 }
 
-export class ReactRenderPlugin<Schemes extends BaseSchemes,T extends ExtraRender = never> extends Scope<never, Area2DInherited<Schemes, T>> {
+export class ReactRenderPlugin<Schemes extends BaseSchemes,T extends ExtraRender = never> extends Scope<Produces<Schemes>, Area2DInherited<Schemes, T>> {
     renderer: Renderer
     presets: RenderPreset<Schemes, T>[] = []
 
@@ -34,7 +34,7 @@ export class ReactRenderPlugin<Schemes extends BaseSchemes,T extends ExtraRender
                 if ('filled' in context.data && context.data.filled) {
                     return context
                 }
-                if (this.mount(context.data.element, context as T)) {
+                if (this.mount(context.data.element, context as Extract<T, { type: 'render' }>)) {
                     return {
                         ...context,
                         data: {
@@ -49,7 +49,7 @@ export class ReactRenderPlugin<Schemes extends BaseSchemes,T extends ExtraRender
         })
     }
 
-    private mount(element: HTMLElement, context: T) {
+    private mount(element: HTMLElement, context: Extract<T, { type: 'render' }>) {
         const parent = this.parentScope()
 
         for (const preset of this.presets) {
@@ -76,7 +76,7 @@ export class ReactRenderPlugin<Schemes extends BaseSchemes,T extends ExtraRender
         )
     }
 
-    public addPreset(preset: RenderPreset<Schemes, T | { type: 'render', data: RenderData<Schemes> }>) {
-        this.presets.push(preset)
+    public addPreset<K>(preset: RenderPreset<Schemes, K extends T ? K : T>) {
+        this.presets.push(preset as RenderPreset<Schemes, T>)
     }
 }

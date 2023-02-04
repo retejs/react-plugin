@@ -12,7 +12,7 @@ type Props = {
   pointerdown?: (id: string) => void
 }
 
-export function setup<Schemes extends BaseSchemes>(props?: Props): RenderPreset<Schemes, PinsRender<Schemes>> {
+export function setup<Schemes extends BaseSchemes, K extends PinsRender<Schemes>>(props?: Props): RenderPreset<Schemes, K> {
     function renderPins(data: PinData) {
         return <>
             {data.pins.map(pin => (
