@@ -1,4 +1,6 @@
 import babelReact from '@babel/preset-react'
+import babelEnv from '@babel/preset-env'
+import babelTS from '@babel/preset-typescript'
 import commonjs from '@rollup/plugin-commonjs'
 import { ReteOptions } from 'rete-cli'
 import replace from 'rollup-plugin-replace'
@@ -22,6 +24,8 @@ export default <ReteOptions>{
     ],
     babel: {
         presets: [
+            babelEnv,
+            babelTS,
             babelReact
         ]
     }
