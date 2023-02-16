@@ -2,10 +2,8 @@ import * as React from 'react'
 import { ClassicPreset } from 'rete'
 import styled from 'styled-components'
 
-import { $nodewidth } from '../vars'
-
 const Input = styled.input<{ styles?: (props: any) => any }>`
-  width: ${$nodewidth - 50}px;
+  width: 100%;
   border-radius: 30px;
   background-color: white;
   padding: 2px 6px;

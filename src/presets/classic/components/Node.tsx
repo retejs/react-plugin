@@ -13,8 +13,7 @@ export const NodeStyles = styled.div<NodeExtraData & { selected: boolean, styles
     border-radius: 10px;
     cursor: pointer;
     box-sizing: border-box;
-    min-width: ${$nodewidth}px;
-    width: ${props => Number.isFinite(props.width) ? `${props.width}px` : 'auto'};
+    width: ${props => Number.isFinite(props.width) ? `${props.width}px` : `${$nodewidth}px`};
     height: ${props => Number.isFinite(props.height) ? `${props.height}px` : 'auto'};
     padding-bottom: 6px;
     position: relative;
