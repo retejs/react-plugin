@@ -1,8 +1,8 @@
 import * as React from 'react'
 import { createContext, useContext, useEffect, useState } from 'react'
-import { flushSync } from 'react-dom'
 
 import { Position } from '../../../types'
+import { syncFlush } from '../../../utils'
 
 export type ConnectionContextValue = { start: Position | null, end: Position | null, path: null | string }
 
@@ -30,16 +30,21 @@ export function ConnectionWrapper(props: Props) {
   const end = 'x' in props.end ? props.end : computedEnd
 
   useEffect(() => {
-    const unwatch1 = typeof props.start === 'function' && props.start(s => flushSync(() => setStart(s)))
-    const unwatch2 = typeof props.end === 'function' && props.end(s => flushSync(() => setEnd(s)))
+    const flush = syncFlush()
+    const unwatch1 = typeof props.start === 'function' && props.start(s => flush.apply(() => setStart(s)))
+    const unwatch2 = typeof props.end === 'function' && props.end(s => flush.apply(() => setEnd(s)))
 
+    flush.ready()
     return () => {
       unwatch1 && unwatch1()
       unwatch2 && unwatch2()
     }
   }, [])
   useEffect(() => {
-    if (start && end) props.path(start, end).then(p => flushSync(() => setPath(p)))
+    const flush = syncFlush()
+
+    if (start && end) props.path(start, end).then(p => flush.apply(() => setPath(p)))
+    flush.ready()
   }, [start, end])
 
   return (
