@@ -26,9 +26,7 @@ export function syncFlush() {
       }
     },
     ready() {
-      setTimeout(() => {
-        ready = true
-      }, 0)
+      ready = true
     }
   }
 }
