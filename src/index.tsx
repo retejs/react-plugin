@@ -23,9 +23,9 @@ export class ReactRenderPlugin<Schemes extends BaseSchemes, T extends ExtraRende
   presets: RenderPreset<Schemes, T>[] = []
   // buffer: ({ type: 'mount', priority: number, reactElement: any, element: any } | { type: 'unmount', element: any })[] = []
 
-  constructor(props: Props) {
+  constructor(props?: Props) {
     super('react-render')
-    this.renderer = getRenderer({ createRoot: props.createRoot })
+    this.renderer = getRenderer({ createRoot: props?.createRoot })
 
     this.addPipe(context => {
       if (!('type' in context)) return context
