@@ -15,11 +15,8 @@ export function getRenderer(props?: { createRoot?: CreateRoot }): Renderer {
         element: React.DOMElement<React.DOMAttributes<any>, any>,
         container: HTMLElement
       ) : Element => {
-        if (container.children.length === 0) container.appendChild(document.createElement('div'))
-        const child = container.children.item(0)
-
-        if (!roots.has(container) && child) {
-          roots.set(container, createRoot(child))
+        if (!roots.has(container)) {
+          roots.set(container, createRoot(container))
         }
         const root = roots.get(container)
 
