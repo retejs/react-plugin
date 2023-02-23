@@ -26,7 +26,7 @@ export function Connection(props: { data: ClassicScheme['Connection'] & { isLoop
   if (!path) return null
 
   return (
-    <Svg>
+    <Svg data-testid="connection">
       <Path
         styles={props.styles}
         d={path} />

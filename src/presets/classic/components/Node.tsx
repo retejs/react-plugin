@@ -91,28 +91,39 @@ export function Node<Scheme extends ClassicScheme>(props: Props<Scheme>) {
   const outputs = Object.entries(props.data.outputs)
   const controls = Object.entries(props.data.controls)
   const selected = props.data.selected || false
+  const { id, label, width, height } = props.data
 
   sortByIndex(inputs)
   sortByIndex(outputs)
   sortByIndex(controls)
 
   return (
-    <NodeStyles selected={selected} width={props.data.width} height={props.data.height} styles={props.styles}>
-      <div className="title">{props.data.label}</div>
+    <NodeStyles
+      selected={selected}
+      width={width}
+      height={height}
+      styles={props.styles}
+      data-testid="node"
+    >
+      <div className="title" data-testid="title">{label}</div>
       {/* Outputs */}
       {outputs.map(([key, output]) => (
-        output && <div className="output" key={key}>
-          <div className="output-title">{output?.label}</div>
+        output && <div className="output" key={key} data-testid={`output-${key}`}>
+          <div
+            className="output-title"
+            data-testid="output-title"
+          >{output?.label}</div>
           <RefComponent
             className='output-socket'
             init={ref => props.emit({ type: 'render', data: {
               type: 'socket',
               side: 'output',
               key: key,
-              nodeId: props.data.id,
+              nodeId: id,
               element: ref,
               payload: output.socket as GetSockets<Scheme['Node']>
             } })}
+            data-testid="output-socket"
           />
         </div>
       ))}
@@ -126,23 +137,28 @@ export function Node<Scheme extends ClassicScheme>(props: Props<Scheme>) {
             element: ref,
             payload: control as GetControls<Scheme['Node']>
           } })}
+          data-testid={`control-${key}`}
         />
       })}
       {/* Inputs */}
       {inputs.map(([key, input]) => (
-        input && <div className="input" key={key}>
+        input && <div className="input" key={key} data-testid={`input-${key}`}>
           <RefComponent
             className='input-socket'
             init={ref => props.emit({ type: 'render', data: {
               type: 'socket',
               side: 'input',
               key: key,
-              nodeId: props.data.id,
+              nodeId: id,
               element: ref,
               payload: input.socket as GetSockets<Scheme['Node']>
             } })}
+            data-testid="input-socket"
           />
-          {input && (!input.control || !input.showControl) && <div className="input-title">{input?.label}</div>}
+          {input && (!input.control || !input.showControl) && <div
+            className="input-title"
+            data-testid="input-title"
+          >{input?.label}</div>}
           {input?.control && input?.showControl && <span className="input-control">
             <RefComponent
               className='input-control' key={key}
@@ -151,6 +167,7 @@ export function Node<Scheme extends ClassicScheme>(props: Props<Scheme>) {
                 element: ref,
                 payload: input.control as GetControls<Scheme['Node']>
               } })}
+              data-testid="input-control"
             />
           </span>
           }
