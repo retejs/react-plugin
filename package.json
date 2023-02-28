@@ -15,9 +15,9 @@
   "peerDependencies": {
     "react": "^16.8.6 || ^17 || ^18",
     "react-dom": "^16.8.6 || ^17 || ^18",
-    "rete": "file:../rete/dist/package.tgz",
-    "rete-area-plugin": "file:../area-plugin/dist/package.tgz",
-    "rete-render-utils": "file:../render-utils/dist/package.tgz",
+    "rete": "^2.0.0-beta.1",
+    "rete-area-plugin": "^2.0.0-beta.1",
+    "rete-render-utils": "^2.0.0-beta.1",
     "styled-components": "^5.3.6"
   },
   "devDependencies": {
@@ -28,10 +28,10 @@
     "@types/styled-components": "^5.1.26",
     "eslint-plugin-react": "^7.12.4",
     "react": "^18.2.0",
-    "rete": "file:../rete/dist/package.tgz",
-    "rete-area-plugin": "file:../area-plugin/dist/package.tgz",
-    "rete-cli": "^1.0.0-beta.24",
-    "rete-render-utils": "file:../render-utils/dist/package.tgz",
+    "rete": "^2.0.0-beta.1",
+    "rete-area-plugin": "^2.0.0-beta.1",
+    "rete-cli": "^1.0.0-beta.25",
+    "rete-render-utils": "^2.0.0-beta.1",
     "rollup-plugin-replace": "^2.2.0",
     "rollup-plugin-sass": "^1.2.2",
     "styled-components": "^5.3.6"
