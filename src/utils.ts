@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { flushSync } from 'react-dom'
 
 export function Root({ children, rendered }: { children: JSX.Element | null, rendered: () => void }) {
@@ -10,11 +10,15 @@ export function Root({ children, rendered }: { children: JSX.Element | null, ren
 }
 
 export function syncFlush() {
-  let ready = false
+  const ready = useRef(false)
+
+  useEffect(() => {
+    ready.current = true
+  }, [])
 
   return {
     apply(f: () => void) {
-      if (ready) {
+      if (ready.current) {
         try {
           flushSync(f)
         } catch (error) {
@@ -29,9 +33,6 @@ export function syncFlush() {
       } else {
         f()
       }
-    },
-    ready() {
-      ready = true
     }
   }
 }

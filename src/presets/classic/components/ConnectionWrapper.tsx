@@ -28,23 +28,19 @@ export function ConnectionWrapper(props: Props) {
   const [path, setPath] = useState<string | null>(null)
   const start = 'x' in props.start ? props.start : computedStart
   const end = 'x' in props.end ? props.end : computedEnd
+  const flush = syncFlush()
 
   useEffect(() => {
-    const flush = syncFlush()
     const unwatch1 = typeof props.start === 'function' && props.start(s => flush.apply(() => setStart(s)))
     const unwatch2 = typeof props.end === 'function' && props.end(s => flush.apply(() => setEnd(s)))
 
-    flush.ready()
     return () => {
       unwatch1 && unwatch1()
       unwatch2 && unwatch2()
     }
   }, [])
   useEffect(() => {
-    const flush = syncFlush()
-
     if (start && end) props.path(start, end).then(p => flush.apply(() => setPath(p)))
-    flush.ready()
   }, [start, end])
 
   return (
