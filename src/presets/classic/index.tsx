@@ -12,6 +12,7 @@ import { Node } from './components/Node'
 import { Socket } from './components/Socket'
 
 export { Connection } from './components/Connection'
+export { useConnection } from './components/ConnectionWrapper'
 export { Control } from './components/Control'
 export { Node, NodeStyles } from './components/Node'
 export { Socket } from './components/Socket'
