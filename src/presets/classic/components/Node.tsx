@@ -159,7 +159,7 @@ export function Node<Scheme extends ClassicScheme>(props: Props<Scheme>) {
             className="input-title"
             data-testid="input-title"
           >{input?.label}</div>}
-          {input?.control && input?.showControl && <span className="input-control">
+          {input?.control && input?.showControl && (
             <RefComponent
               className='input-control' key={key}
               init={ref => input.control && props.emit({ type: 'render', data: {
@@ -169,7 +169,7 @@ export function Node<Scheme extends ClassicScheme>(props: Props<Scheme>) {
               } })}
               data-testid="input-control"
             />
-          </span>
+          )
           }
         </div>
       ))}
