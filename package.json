@@ -8,9 +8,19 @@
   },
   "author": "Vitaliy Stoliarov",
   "license": "MIT",
+  "keywords": [
+    "react",
+    "plugin",
+    "rete",
+    "Rete.js"
+  ],
+  "homepage": "https://retejs.org",
   "repository": {
     "type": "git",
     "url": "https://github.com/retejs/react-render-plugin.git"
+  },
+  "bugs": {
+    "url": "https://github.com/retejs/react-render-plugin/issues"
   },
   "peerDependencies": {
     "react": "^16.8.6 || ^17 || ^18",
