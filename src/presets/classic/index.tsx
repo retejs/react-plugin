@@ -16,6 +16,7 @@ export { useConnection } from './components/ConnectionWrapper'
 export { Control } from './components/Control'
 export { Node, NodeStyles } from './components/Node'
 export { Socket } from './components/Socket'
+export * as vars from './vars'
 
 type CustomizationProps <Schemes extends ClassicScheme>= {
     node?: (data: ExtractPayload<Schemes, 'node'>) => typeof Node | null
