@@ -1,97 +1,28 @@
-React Render
+Rete.js React render plugin
 ====
-#### Rete.js plugin
+[![Made in Ukraine](https://img.shields.io/badge/made_in-ukraine-ffd700.svg?labelColor=0057b7)](https://stand-with-ukraine.pp.ua)
+[![Discord](https://img.shields.io/discord/1081223198055604244?color=%237289da&label=Discord)](https://discord.gg/cxSFkPZdsV)
 
-```js
-import ReactRenderPlugin from 'rete-react-render-plugin';
+**Rete.js plugin**
 
-editor.use(ReactRenderPlugin);
-```
+## Key features
 
-Use with React.js v18
-```js
-import { createRoot } from 'react-dom/client';
-import ReactRenderPlugin from 'rete-react-render-plugin';
+- **Render elements**: visualize an elements such as nodes and connections using React.js components
+- **Customization**: modify appearance and behavior for a personalized workflow
+- **Presets**: predefined React.js components for different types of features
+  -  **[Classic](https://retejs.org/docs/guides/renderers/react#connect-plugin)**: provides a classic visualization of nodes, connections, and controls
+  -  **[Context menu](https://retejs.org/docs/guides/context-menu#render-context-menu)**: provides a classic appearance for `rete-context-menu-plugin`
+  -  **[Minimap](https://retejs.org/docs/guides/minimap#render)**: provides a classic appearance for `rete-minimap-plugin`
+  -  **[Reroute](https://retejs.org/docs/guides/reroute#rendering)**: provides a classic appearance for `rete-connection-reroute-plugin`
 
-editor.use(ReactRenderPlugin, { createRoot });
-```
+## Getting Started
 
-Create control:
-```jsx
-class MyReactControl extends React.Component {
+Please refer to the [guide](https://retejs.org/docs/guides/renderers/react) and [example](https://retejs.org/examples/react) using this plugin
 
-  componentDidMount() {
-      // this.props.getData
-      // this.props.putData
-  }
+## Contribution
 
-  render() {
-    return (
-        <div>Hello ${this.props.name}!</div>
-    )
-  }
-}
+Please refer to the [Contribution](https://retejs.org/docs/contribution) guide
 
-class MyControl extends Rete.Control {
-  constructor(emitter, key, name) {
-    super(key);
-    this.render = 'react';
-    this.component = MyReactControl;
-    this.props = { emitter, name };
-  }
-}
-```
+## License
 
-Customize node:
-```jsx
-import ReactRenderPlugin, { Node, Socket, Control } from 'rete-react-render-plugin';
-
-
-export class MyNode extends Node {
-  render() {
-    const { node, bindSocket, bindControl } = this.props;
-    const { outputs, controls, inputs, selected } = this.state;
-
-    return (
-      <div className={`node ${selected}`}>
-        <div className="title">{node.name}</div>
-        {/* Outputs */}
-        {outputs.map((output) => (
-          <div className="output" key={output.key}>
-            <div className="output-title">{output.name}</div>
-            <Socket type="output" socket={output.socket} io={output} innerRef={bindSocket} />
-          </div>
-        ))}
-        {/* Controls */}
-        {controls.map(control => (
-          <Control className="control" key={control.key} control={control} innerRef={bindControl} />
-        ))}
-        {/* Inputs */}
-        {inputs.map(input => (
-          <div className="input" key={input.key}>
-            <Socket type="input" socket={input.socket} io={input} innerRef={bindSocket} />
-            {!input.showControl() && <div className="input-title">{input.name}</div>}
-            {input.showControl() && <Control className="input-control" control={input.control} innerRef={bindControl} />}
-          </div>
-        ))}
-      </div>
-    )
-  }
-}
-
-editor.use(ReactRenderPlugin, {
-    component: MyNode // common custom React component
-}
-```
-
-Component specific custom node:
-```js
-class AddComponent extends Rete.Component {
-  constructor() {
-    super("Add");
-    this.data.component = MyNode;
-  }
-  ...
-```
-
-[Example](https://codesandbox.io/s/retejs-react-render-t899c)
+[MIT](https://github.com/retejs/react-render-plugin/blob/master/LICENSE)
