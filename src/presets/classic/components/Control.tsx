@@ -13,7 +13,7 @@ const Input = styled.input<{ styles?: (props: any) => any }>`
   ${props => props.styles && props.styles(props)}
 `
 
-export function Control<N extends 'text' | 'number', T extends ClassicPreset.InputControl<N>>(props: { data: T, styles?: () => any }) {
+export function Control<N extends 'text' | 'number'>(props: { data: ClassicPreset.InputControl<N>, styles?: () => any }) {
   const [value, setValue] = React.useState(props.data.value)
 
   React.useEffect(() => {
@@ -29,7 +29,7 @@ export function Control<N extends 'text' | 'number', T extends ClassicPreset.Inp
       onChange={e => {
         const val = (props.data.type === 'number'
           ? +e.target.value
-          : e.target.value) as T['value']
+          : e.target.value) as typeof props.data['value']
 
         setValue(val)
         props.data.setValue(val)

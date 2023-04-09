@@ -1,15 +1,20 @@
 import * as React from 'react'
 import { CanAssignSignal, ClassicPreset } from 'rete'
 import { AreaPlugin } from 'rete-area-plugin'
-import { classicConnectionPath, loopConnectionPath, SocketPositionWatcher, useDOMSocketPosition } from 'rete-render-utils'
+import {
+  classicConnectionPath, loopConnectionPath, SocketPositionWatcher, useDOMSocketPosition
+} from 'rete-render-utils'
 
-import { ClassicScheme, ExtractPayload, ExtraRender, Position, ReactArea2D, RenderPayload } from '../../types'
+import {
+  ClassicScheme, ExtractPayload, ExtraRender, Position, ReactArea2D, RenderEmit, RenderPayload
+} from '../../types'
 import { RenderPreset } from '../types'
 import { Connection } from './components/Connection'
 import { ConnectionWrapper } from './components/ConnectionWrapper'
 import { Control } from './components/Control'
 import { Node } from './components/Node'
 import { Socket } from './components/Socket'
+import { AcceptComponent } from './utility-types'
 
 export { Connection } from './components/Connection'
 export { useConnection } from './components/ConnectionWrapper'
@@ -19,11 +24,10 @@ export { Socket } from './components/Socket'
 export * as vars from './vars'
 
 type CustomizationProps <Schemes extends ClassicScheme>= {
-    node?: (data: ExtractPayload<Schemes, 'node'>) => typeof Node | null
-    connection?: (data: ExtractPayload<Schemes, 'connection'>) => typeof Connection | null
-    socket?: (data: ExtractPayload<Schemes, 'socket'>) => typeof Socket | null
-    control?: <N extends ClassicPreset.Control>(data: ExtractPayload<Schemes, 'control'>)
-        => ((props: { data: N }) => React.ReactElement<{ data: N }>) | null
+    node?: (data: ExtractPayload<Schemes, 'node'>) => AcceptComponent<typeof data['payload'], { emit: RenderEmit<Schemes> }> | null
+    connection?: (data: ExtractPayload<Schemes, 'connection'>) => AcceptComponent<typeof data['payload']> | null
+    socket?: (data: ExtractPayload<Schemes, 'socket'>) => AcceptComponent<typeof data['payload']> | null
+    control?: (data: ExtractPayload<Schemes, 'control'>) => AcceptComponent<typeof data['payload']> | null
 }
 
 type IsCompatible<K> = Extract<K, { type: 'render' | 'rendered' }> extends { type: 'render' | 'rendered', data: infer P } ? CanAssignSignal<P, RenderPayload<ClassicScheme>> : false // TODO should add type: 'render' ??
@@ -85,19 +89,18 @@ export function setup<Schemes extends ClassicScheme, K extends ExtraRender>(
       } else if (context.data.type === 'socket') {
         const Component = socket ? socket(context.data) : Socket
 
-        return (Component && context.data.payload &&
-                    <Component data={context.data.payload} />
+        return (Component && context.data.payload && <Component data={context.data.payload} />
         )
       } else if (context.data.type === 'control') {
-        if (control && context.data.payload) {
-          const Component = control(context.data)
+        const Component = control && context.data.payload
+          ? control(context.data)
+          : (
+            context.data.payload instanceof ClassicPreset.InputControl
+              ? Control
+              : null
+          )
 
-          return Component && <Component data={context.data.payload} />
-        }
-
-        return context.data.payload instanceof ClassicPreset.InputControl
-          ? <Control data={context.data.payload} />
-          : null
+        return Component && <Component data={context.data.payload} />
       }
     }
   }
