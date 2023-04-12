@@ -10,6 +10,7 @@ import { Root } from './utils'
 export * as Presets from './presets'
 export { RefComponent } from './ref-component'
 export * from './types'
+export { useRete } from './utils'
 
 type Produces<Schemes extends BaseSchemes> =
     | { type: 'connectionpath', data: { payload: Schemes['Connection'], path?: string, points: Position[] } }
