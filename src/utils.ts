@@ -47,6 +47,7 @@ export function useRete<T extends { destroy(): void }>(create: (el: HTMLElement)
     if (container) {
       if (editorRef.current) {
         editorRef.current.destroy()
+        container.innerHTML = ''
       }
       create(container).then((value) => {
         editorRef.current = value
