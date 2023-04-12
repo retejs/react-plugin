@@ -123,6 +123,7 @@ export function Node<Scheme extends ClassicScheme>(props: Props<Scheme>) {
               element: ref,
               payload: output.socket as GetSockets<Scheme['Node']>
             } })}
+            unmount={ref => props.emit({ type: 'unmount', data: { element: ref } })}
             data-testid="output-socket"
           />
         </div>
@@ -137,6 +138,7 @@ export function Node<Scheme extends ClassicScheme>(props: Props<Scheme>) {
             element: ref,
             payload: control as GetControls<Scheme['Node']>
           } })}
+          unmount={ref => props.emit({ type: 'unmount', data: { element: ref } })}
           data-testid={`control-${key}`}
         />
       })}
@@ -153,6 +155,7 @@ export function Node<Scheme extends ClassicScheme>(props: Props<Scheme>) {
               element: ref,
               payload: input.socket as GetSockets<Scheme['Node']>
             } })}
+            unmount={ref => props.emit({ type: 'unmount', data: { element: ref } })}
             data-testid="input-socket"
           />
           {input && (!input.control || !input.showControl) && <div
@@ -167,6 +170,7 @@ export function Node<Scheme extends ClassicScheme>(props: Props<Scheme>) {
                 element: ref,
                 payload: input.control as GetControls<Scheme['Node']>
               } })}
+              unmount={ref => props.emit({ type: 'unmount', data: { element: ref } })}
               data-testid="input-control"
             />
           )

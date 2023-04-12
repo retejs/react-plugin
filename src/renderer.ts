@@ -8,7 +8,7 @@ export function getRenderer(props?: { createRoot?: CreateRoot }): Renderer {
   const createRoot = props?.createRoot
 
   if (createRoot) {
-    const roots = new Map<HTMLElement, any>()
+    const roots = new WeakMap<HTMLElement, any>()
 
     return {
       mount: ((

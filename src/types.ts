@@ -37,6 +37,7 @@ export type ExtractPayload<T extends ClassicScheme, K extends string> = Extract<
 export type ReactArea2D<T extends ClassicScheme> =
   | { type: 'render', data: RenderPayload<T> }
   | { type: 'rendered', data: RenderPayload<T> }
+  | { type: 'unmount', data: { element: HTMLElement } }
 
 export type RenderEmit<T extends ClassicScheme> = (props: ReactArea2D<T>) => void
 
