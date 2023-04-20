@@ -1,9 +1,10 @@
 import * as React from 'react'
 import styled, { css } from 'styled-components'
 
-import { RefComponent } from '../../../ref-component'
-import { ClassicScheme, GetControls, GetSockets, RenderEmit } from '../../../types'
+import { ClassicScheme, RenderEmit } from '../../../types'
 import { $nodecolor, $nodecolorselected, $nodewidth, $socketmargin, $socketsize } from '../vars'
+import { RefControl } from './refs/RefControl'
+import { RefSocket } from './refs/RefSocket'
 
 type NodeExtraData = { width?: number, height?: number }
 
@@ -109,69 +110,46 @@ export function Node<Scheme extends ClassicScheme>(props: Props<Scheme>) {
       {/* Outputs */}
       {outputs.map(([key, output]) => (
         output && <div className="output" key={key} data-testid={`output-${key}`}>
-          <div
-            className="output-title"
-            data-testid="output-title"
-          >{output?.label}</div>
-          <RefComponent
-            className='output-socket'
-            init={ref => props.emit({ type: 'render', data: {
-              type: 'socket',
-              side: 'output',
-              key: key,
-              nodeId: id,
-              element: ref,
-              payload: output.socket as GetSockets<Scheme['Node']>
-            } })}
-            unmount={ref => props.emit({ type: 'unmount', data: { element: ref } })}
-            data-testid="output-socket"
+          <div className="output-title" data-testid="output-title">{output?.label}</div>
+          <RefSocket
+            name="output-socket"
+            side="output"
+            socketKey={key}
+            nodeId={id}
+            emit={props.emit}
+            payload={output.socket}
           />
         </div>
       ))}
       {/* Controls */}
       {controls.map(([key, control]) => {
-        if (!control) return null
-        return <RefComponent
-          className='control' key={key}
-          init={ref => props.emit({ type: 'render', data: {
-            type: 'control',
-            element: ref,
-            payload: control as GetControls<Scheme['Node']>
-          } })}
-          unmount={ref => props.emit({ type: 'unmount', data: { element: ref } })}
-          data-testid={`control-${key}`}
-        />
+        return control ? <RefControl
+          key={key}
+          name="control"
+          emit={props.emit}
+          payload={control}
+        /> : null
       })}
       {/* Inputs */}
       {inputs.map(([key, input]) => (
         input && <div className="input" key={key} data-testid={`input-${key}`}>
-          <RefComponent
-            className='input-socket'
-            init={ref => props.emit({ type: 'render', data: {
-              type: 'socket',
-              side: 'input',
-              key: key,
-              nodeId: id,
-              element: ref,
-              payload: input.socket as GetSockets<Scheme['Node']>
-            } })}
-            unmount={ref => props.emit({ type: 'unmount', data: { element: ref } })}
-            data-testid="input-socket"
+          <RefSocket
+            name="input-socket"
+            side="input"
+            socketKey={key}
+            nodeId={id}
+            emit={props.emit}
+            payload={input.socket}
           />
-          {input && (!input.control || !input.showControl) && <div
-            className="input-title"
-            data-testid="input-title"
-          >{input?.label}</div>}
+          {input && (!input.control || !input.showControl) && (
+            <div className="input-title" data-testid="input-title">{input?.label}</div>
+          )}
           {input?.control && input?.showControl && (
-            <RefComponent
-              className='input-control' key={key}
-              init={ref => input.control && props.emit({ type: 'render', data: {
-                type: 'control',
-                element: ref,
-                payload: input.control as GetControls<Scheme['Node']>
-              } })}
-              unmount={ref => props.emit({ type: 'unmount', data: { element: ref } })}
-              data-testid="input-control"
+            <RefControl
+              key={key}
+              name="input-control"
+              emit={props.emit}
+              payload={input.control}
             />
           )
           }

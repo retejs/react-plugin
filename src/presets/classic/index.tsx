@@ -20,6 +20,8 @@ export { Connection } from './components/Connection'
 export { useConnection } from './components/ConnectionWrapper'
 export { Control } from './components/Control'
 export { Node, NodeStyles } from './components/Node'
+export { RefControl } from './components/refs/RefControl'
+export { RefSocket } from './components/refs/RefSocket'
 export { Socket } from './components/Socket'
 export * as vars from './vars'
 
