@@ -118,6 +118,7 @@ export function Node<Scheme extends ClassicScheme>(props: Props<Scheme>) {
             nodeId={id}
             emit={props.emit}
             payload={output.socket}
+            data-testid="output-socket"
           />
         </div>
       ))}
@@ -128,6 +129,7 @@ export function Node<Scheme extends ClassicScheme>(props: Props<Scheme>) {
           name="control"
           emit={props.emit}
           payload={control}
+          data-testid={`control-${key}`}
         /> : null
       })}
       {/* Inputs */}
@@ -140,6 +142,7 @@ export function Node<Scheme extends ClassicScheme>(props: Props<Scheme>) {
             nodeId={id}
             emit={props.emit}
             payload={input.socket}
+            data-testid="input-socket"
           />
           {input && (!input.control || !input.showControl) && (
             <div className="input-title" data-testid="input-title">{input?.label}</div>
@@ -150,6 +153,7 @@ export function Node<Scheme extends ClassicScheme>(props: Props<Scheme>) {
               name="input-control"
               emit={props.emit}
               payload={input.control}
+              data-testid="input-control"
             />
           )
           }

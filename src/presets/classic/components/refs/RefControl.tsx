@@ -10,8 +10,9 @@ type Props<Scheme extends ClassicScheme> = {
   payload: ClassicPreset.Control
 }
 
-export function RefControl<Scheme extends ClassicScheme>({ name, emit, payload }: Props<Scheme>) {
+export function RefControl<Scheme extends ClassicScheme>({ name, emit, payload, ...props }: Props<Scheme>) {
   return <RefComponent
+    {...props}
     className={name}
     init={ref => emit({ type: 'render', data: {
       type: 'control',
@@ -19,6 +20,5 @@ export function RefControl<Scheme extends ClassicScheme>({ name, emit, payload }
       payload: payload as GetControls<Scheme['Node']>
     } })}
     unmount={ref => emit({ type: 'unmount', data: { element: ref } })}
-    data-testid={name}
   />
 }

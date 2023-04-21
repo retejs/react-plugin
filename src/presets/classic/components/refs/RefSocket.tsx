@@ -13,8 +13,9 @@ type Props<Scheme extends ClassicScheme> = {
   payload: ClassicPreset.Socket
 }
 
-export function RefSocket<Scheme extends ClassicScheme>({ name, emit, nodeId, side, socketKey, payload }: Props<Scheme>) {
+export function RefSocket<Scheme extends ClassicScheme>({ name, emit, nodeId, side, socketKey, payload, ...props }: Props<Scheme>) {
   return <RefComponent
+    {...props}
     className={name}
     init={ref => emit({ type: 'render', data: {
       type: 'socket',
@@ -25,6 +26,5 @@ export function RefSocket<Scheme extends ClassicScheme>({ name, emit, nodeId, si
       payload: payload as GetSockets<Scheme['Node']>
     } })}
     unmount={ref => emit({ type: 'unmount', data: { element: ref } })}
-    data-testid={name}
   />
 }
