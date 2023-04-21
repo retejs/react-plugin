@@ -27,7 +27,10 @@ export function syncFlush() {
           if (message && (
             message.includes('flushSync was called from inside a lifecycle method')
             || message.includes('React error #187')
-          )) return
+          )) {
+            f()
+            return
+          }
           throw error
         }
       } else {
