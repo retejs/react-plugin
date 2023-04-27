@@ -27,6 +27,7 @@ export function Menu(props: { items: Item[], delay: number, searchBar?: boolean,
     onMouseOver={() => cancelHide()}
     onMouseLeave={() => hide && hide()}
     onWheel={e => e.stopPropagation()}
+    data-testid="context-menu"
   >
     {props.searchBar && (
       <CommonStyle>

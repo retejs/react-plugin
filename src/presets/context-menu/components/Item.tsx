@@ -33,6 +33,7 @@ export function ItemElement(props: { onClick(): void, delay: number, hide(): voi
     hasSubitems={Boolean(props.subitems)}
     onPointerOver={() => { cancelHide(); setVisibleSubitems(true) }}
     onPointerLeave={() => hide && hide()}
+    data-testid="context-menu-item"
   >
     {props.children}
     {props.subitems && visibleSubitems && (

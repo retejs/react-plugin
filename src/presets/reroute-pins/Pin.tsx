@@ -40,6 +40,7 @@ export function Pin(props: Props) {
       }}
       selected={props.selected}
       style={{ position: 'absolute', top: `${y - pinSize / 2}px`, left: `${x - pinSize / 2}px` }}
+      data-testid="pin"
     >
 
     </Styles>

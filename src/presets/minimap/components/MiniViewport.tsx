@@ -24,5 +24,6 @@ export function MiniViewport(props: Rect & { containerWidth: number, start(): Tr
       width: px(scale(props.width)),
       height: px(scale(props.height))
     }}
+    data-testid="minimap-viewport"
   />
 }

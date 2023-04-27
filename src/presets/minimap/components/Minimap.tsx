@@ -60,6 +60,7 @@ export function Minimap(props: Props) {
       props.point(x, y)
     }}
     ref={ref}
+    data-testid="minimap"
   >
     {containerWidth && props.nodes.map((node, i) => (
       <MiniNode

@@ -15,5 +15,5 @@ export function MiniNode(props: { left: number, top: number, width: number, heig
     top: px(props.top),
     width: px(props.width),
     height: px(props.height)
-  }} />
+  }} data-testid="minimap-node"/>
 }
