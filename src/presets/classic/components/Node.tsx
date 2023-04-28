@@ -19,6 +19,9 @@ export const NodeStyles = styled.div<NodeExtraData & { selected: boolean, styles
     padding-bottom: 6px;
     position: relative;
     user-select: none;
+    line-height: initial;
+    font-family: Arial;
+
     &:hover {
         background: lighten(${$nodecolor},4%);
     }
