@@ -1,3 +1,5 @@
+import * as React from 'react'
+
 type Translate = (dx: number, dy: number) => void
 type StartEvent = { pageX: number, pageY: number }
 
@@ -25,4 +27,25 @@ export function useDrag(translate: Translate) {
       window.addEventListener('pointercancel', up)
     }
   }
+}
+
+export function useNoDrag(ref: React.MutableRefObject<HTMLElement | null>, disabled?: boolean) {
+  React.useEffect(() => {
+    const handleClick = (e: PointerEvent) => !disabled && e.stopPropagation()
+    const el = ref.current
+
+    el?.addEventListener('pointerdown', handleClick)
+
+    return () => {
+      el?.removeEventListener('pointerdown', handleClick)
+    }
+  }, [ref, disabled])
+}
+
+export function NoDrag(props: { children: React.ReactNode, disabled?: boolean }) {
+  const ref = React.useRef<HTMLDivElement | null>(null)
+
+  useNoDrag(ref, props.disabled)
+
+  return <span ref={ref}>{props.children}</span>
 }

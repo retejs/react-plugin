@@ -9,6 +9,7 @@ import { Root } from './utils'
 
 export * as Presets from './presets'
 export { RefComponent } from './ref-component'
+export * from './shared'
 export * from './types'
 export { useRete } from './utils'
 
