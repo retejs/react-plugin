@@ -1,6 +1,6 @@
 {
   "name": "rete-react-render-plugin",
-  "version": "2.0.0-beta.17",
+  "version": "2.0.0-beta.18",
   "description": "",
   "scripts": {
     "build": "rete build -c rete.config.ts",
