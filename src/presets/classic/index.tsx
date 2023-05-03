@@ -32,7 +32,7 @@ type CustomizationProps <Schemes extends ClassicScheme>= {
     control?: (data: ExtractPayload<Schemes, 'control'>) => AcceptComponent<typeof data['payload']> | null
 }
 
-type IsCompatible<K> = Extract<K, { type: 'render' | 'rendered' }> extends { type: 'render' | 'rendered', data: infer P } ? CanAssignSignal<P, RenderPayload<ClassicScheme>> : false // TODO should add type: 'render' ??
+type IsCompatible<K> = Extract<K, { type: 'render' | 'rendered' }> extends { type: 'render' | 'rendered', data: infer P } ? CanAssignSignal<P, RenderPayload<ClassicScheme>> : false
 type Substitute<K, Schemes extends ClassicScheme> = IsCompatible<K> extends true ? K : ReactArea2D<Schemes>
 
 type ClasssicProps<Schemes extends ClassicScheme, K extends ExtraRender> = (

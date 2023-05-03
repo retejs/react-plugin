@@ -21,12 +21,6 @@ const Styles = styled.div`
     &.multiple {
       border-color: yellow;
     }
-    &.output { /// TODO remove?
-      margin-right: - ${$socketsize / 2}px;
-    }
-    &.input { /// TODO remove?
-      margin-left: - ${$socketsize / 2}px;
-    }
 `
 
 const Hoverable = styled.div`
