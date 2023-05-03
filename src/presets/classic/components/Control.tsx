@@ -2,6 +2,8 @@ import * as React from 'react'
 import { ClassicPreset } from 'rete'
 import styled from 'styled-components'
 
+import { Drag } from '../../../shared'
+
 const Input = styled.input<{ styles?: (props: any) => any }>`
   width: 100%;
   border-radius: 30px;
@@ -15,6 +17,9 @@ const Input = styled.input<{ styles?: (props: any) => any }>`
 
 export function Control<N extends 'text' | 'number'>(props: { data: ClassicPreset.InputControl<N>, styles?: () => any }) {
   const [value, setValue] = React.useState(props.data.value)
+  const ref = React.useRef(null)
+
+  Drag.useNoDrag(ref)
 
   React.useEffect(() => {
     setValue(props.data.value)
@@ -24,7 +29,7 @@ export function Control<N extends 'text' | 'number'>(props: { data: ClassicPrese
     <Input
       value={value}
       type={props.data.type}
-      onPointerDown={e => e.stopPropagation()}
+      ref={ref}
       readOnly={props.data.readonly}
       onChange={e => {
         const val = (props.data.type === 'number'
