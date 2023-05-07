@@ -1,7 +1,7 @@
 import * as React from 'react'
 import styled, { css } from 'styled-components'
 
-import { ClassicScheme, RenderEmit } from '../../../types'
+import { ClassicScheme, RenderEmit } from '../types'
 import { $nodecolor, $nodecolorselected, $nodewidth, $socketmargin, $socketsize } from '../vars'
 import { RefControl } from './refs/RefControl'
 import { RefSocket } from './refs/RefSocket'

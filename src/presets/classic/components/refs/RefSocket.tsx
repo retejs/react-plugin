@@ -2,7 +2,7 @@ import * as React from 'react'
 import { ClassicPreset, NodeId } from 'rete'
 
 import { RefComponent } from '../../../../ref-component'
-import { ClassicScheme, GetSockets, ReactArea2D, Side } from '../../../../types'
+import { ClassicScheme, GetSockets, ReactArea2D, Side } from '../../types'
 
 type Props<Scheme extends ClassicScheme> = {
   name: string
