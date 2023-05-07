@@ -1,6 +1,6 @@
 {
   "name": "rete-react-render-plugin",
-  "version": "2.0.0-beta.18",
+  "version": "2.0.0-beta.19",
   "description": "",
   "scripts": {
     "build": "rete build -c rete.config.ts",
@@ -25,9 +25,9 @@
   "peerDependencies": {
     "react": "^16.8.6 || ^17 || ^18",
     "react-dom": "^16.8.6 || ^17 || ^18",
-    "rete": "^2.0.0-beta.1",
-    "rete-area-plugin": "^2.0.0-beta.1",
-    "rete-render-utils": "^2.0.0-beta.1",
+    "rete": "^2.0.0-beta.8",
+    "rete-area-plugin": "^2.0.0-beta.10",
+    "rete-render-utils": "^2.0.0-beta.11",
     "styled-components": "^5.3.6"
   },
   "devDependencies": {
@@ -38,10 +38,10 @@
     "@types/styled-components": "^5.1.26",
     "eslint-plugin-react": "^7.12.4",
     "react": "^18.2.0",
-    "rete": "^2.0.0-beta.1",
-    "rete-area-plugin": "^2.0.0-beta.1",
+    "rete": "^2.0.0-beta.8",
+    "rete-area-plugin": "^2.0.0-beta.10",
     "rete-cli": "^1.0.0-beta.29",
-    "rete-render-utils": "^2.0.0-beta.1",
+    "rete-render-utils": "^2.0.0-beta.11",
     "rollup-plugin-replace": "^2.2.0",
     "rollup-plugin-sass": "^1.2.2",
     "styled-components": "^5.3.6"

@@ -1,3 +1,7 @@
+## 2.0.0-beta.19
+
+Breaking changes: `area` property omitted from `Presets.classic.setup({ area })`
+
 ## 2.0.0-beta.18
 
 Alias Control from classic preset
