@@ -50,6 +50,8 @@ export function setup<Schemes extends ClassicScheme, K extends ReactArea2D<Schem
 
   return {
     attach(plugin) {
+      if (!plugin.hasParent()) return
+
       positionWatcher.attach(plugin.parentScope<AreaPlugin<Schemes, K>>(AreaPlugin))
     },
     // eslint-disable-next-line max-statements, complexity
