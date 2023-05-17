@@ -2,6 +2,7 @@ import * as React from 'react'
 import styled, { } from 'styled-components'
 
 import { useDrag } from '../../shared/drag'
+import { Position } from '../../types'
 import { Pin as PinType } from './types'
 
 const pinSize = 20
@@ -19,10 +20,11 @@ type Props = PinType & {
     contextMenu(): void
     translate(dx: number, dy: number): void
     pointerdown(): void
+    pointer(): Position
 }
 
 export function Pin(props: Props) {
-  const drag = useDrag((dx, dy) => props.translate(dx, dy))
+  const drag = useDrag((dx, dy) => props.translate(dx, dy), props.pointer)
   const { x, y } = props.position
 
   return (

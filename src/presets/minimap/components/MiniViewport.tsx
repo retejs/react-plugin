@@ -14,7 +14,7 @@ const MiniViewportStyles = styled.div`
 export function MiniViewport(props: Rect & { containerWidth: number, start(): Transform, translate: Translate }) {
   const scale = (v: number) => v * props.containerWidth
   const invert = (v: number) => v / props.containerWidth
-  const drag = useDrag((dx, dy) => props.translate(invert(-dx), invert(-dy)))
+  const drag = useDrag((dx, dy) => props.translate(invert(-dx), invert(-dy)), e => ({ x: e.pageX, y: e.pageY }))
 
   return <MiniViewportStyles
     onPointerDown={drag.start}

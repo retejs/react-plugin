@@ -1,18 +1,21 @@
 import * as React from 'react'
 
+import { Position } from '../types'
+
 type Translate = (dx: number, dy: number) => void
 type StartEvent = { pageX: number, pageY: number }
 
-export function useDrag(translate: Translate) {
+export function useDrag(translate: Translate, getPointer: (e: StartEvent) => Position) {
   return {
     start(e: StartEvent) {
-      let previous = { x: e.pageX, y: e.pageY }
+      let previous = { ...getPointer(e) }
 
-      function move(moveEvent: PointerEvent) {
-        const dx = moveEvent.pageX - previous.x
-        const dy = moveEvent.pageY - previous.y
+      function move(moveEvent: MouseEvent) {
+        const current = { ...getPointer(moveEvent) }
+        const dx = current.x - previous.x
+        const dy = current.y - previous.y
 
-        previous = { x: moveEvent.pageX, y: moveEvent.pageY }
+        previous = current
 
         translate(dx, dy)
       }

@@ -1,6 +1,5 @@
 import * as React from 'react'
-import { ClassicPreset } from 'rete'
-import { AreaPlugin } from 'rete-area-plugin'
+import { ClassicPreset, Scope } from 'rete'
 import {
   classicConnectionPath, getDOMSocketPosition,
   loopConnectionPath, SocketPositionWatcher } from 'rete-render-utils'
@@ -36,7 +35,7 @@ type CustomizationProps <Schemes extends ClassicScheme>= {
 }
 
 type ClassicProps<Schemes extends ClassicScheme, K> = {
-  socketPositionWatcher?: SocketPositionWatcher<AreaPlugin<Schemes, K>>
+  socketPositionWatcher?: SocketPositionWatcher<Scope<never, [K]>>
   customize?: CustomizationProps<Schemes>
 }
 
@@ -44,15 +43,13 @@ export function setup<Schemes extends ClassicScheme, K extends ReactArea2D<Schem
   props?: ClassicProps<Schemes, K>
 ): RenderPreset<Schemes, K> {
   const positionWatcher = typeof props?.socketPositionWatcher === 'undefined'
-    ? getDOMSocketPosition<Schemes, ReactArea2D<Schemes>>()
+    ? getDOMSocketPosition<Schemes, K>()
     : props?.socketPositionWatcher
   const { node, connection, socket, control } = props?.customize || {}
 
   return {
     attach(plugin) {
-      if (!plugin.hasParent()) return
-
-      positionWatcher.attach(plugin.parentScope<AreaPlugin<Schemes, K>>(AreaPlugin))
+      positionWatcher.attach(plugin as unknown as Scope<never, [K]>)
     },
     // eslint-disable-next-line max-statements, complexity
     render(context, plugin) {
@@ -76,13 +73,16 @@ export function setup<Schemes extends ClassicScheme, K extends ReactArea2D<Schem
                       start={context.data.start || (change => positionWatcher.listen(source, 'output', sourceOutput, change))}
                       end={context.data.end || (change => positionWatcher.listen(target, 'input', targetInput, change))}
                       path={async (start, end) => {
-                        type FixImplicitAny = typeof plugin.__scope.produces
+                        type FixImplicitAny = typeof plugin.__scope.produces | undefined
                         const response: FixImplicitAny = await plugin.emit({
                           type: 'connectionpath', data: {
                             payload,
                             points: [start, end]
                           }
                         })
+
+                        if (!response) return ''
+
                         const { path, points } = response.data
                         const curvature = 0.3
 

@@ -31,6 +31,7 @@ export function ItemElement(props: { onClick(): void, delay: number, hide(): voi
   return <ItemStyle
     onClick={e => { e.stopPropagation(); props.onClick(); props.hide() }}
     hasSubitems={Boolean(props.subitems)}
+    onPointerDown={e => e.stopPropagation()}
     onPointerOver={() => { cancelHide(); setVisibleSubitems(true) }}
     onPointerLeave={() => hide && hide()}
     data-testid="context-menu-item"

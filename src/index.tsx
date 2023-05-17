@@ -13,7 +13,7 @@ export * from './shared'
 export * from './types'
 export { useRete } from './utils'
 
-type Produces<Schemes extends BaseSchemes> =
+export type Produces<Schemes extends BaseSchemes> =
 | { type: 'connectionpath', data: { payload: Schemes['Connection'], path?: string, points: Position[] } }
 
 type Requires<Schemes extends BaseSchemes> =
