@@ -1,3 +1,18 @@
+## v2.0.0-beta.20
+
+Breaking changes:
+
+```ts
+render.addPreset(Presets.reroute.setup({
+  translate(id, dx, dy) {
+    // const { k } = rea.area.transform
+    // dividing by k isn't needed
+    reroutePlugin.translate(id, dx, dy);
+  }
+}))
+```
+
+
 ## 2.0.0-beta.19
 
 Breaking changes: `area` property omitted from `Presets.classic.setup({ area })`
