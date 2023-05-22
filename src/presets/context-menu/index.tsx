@@ -4,9 +4,19 @@ import { BaseSchemes } from 'rete'
 
 import { RenderPreset } from '../types'
 import { Menu } from './components/Menu'
-import { ContextMenuRender } from './types'
+import { ContextMenuRender, Customize } from './types'
 
-export function setup<Schemes extends BaseSchemes, K extends ContextMenuRender>(props?: { delay?: number }): RenderPreset<Schemes, K> {
+export { ItemStyle as Item, SubitemStyles as Subitems } from './components/Item'
+export { Styles as Menu } from './components/Menu'
+export { SearchInput as Search } from './components/Search'
+export { CommonStyle as Common } from './styles'
+
+type Props = {
+  delay?: number
+  customize?: Customize
+}
+
+export function setup<Schemes extends BaseSchemes, K extends ContextMenuRender>(props?: Props): RenderPreset<Schemes, K> {
   const delay = typeof props?.delay === 'undefined' ? 1000 : props.delay
 
   return {
@@ -17,6 +27,7 @@ export function setup<Schemes extends BaseSchemes, K extends ContextMenuRender>(
           delay={delay}
           searchBar={context.data.searchBar}
           onHide={context.data.onHide}
+          components={props?.customize}
         />
       }
     }
