@@ -1,3 +1,7 @@
+## v2.0.0-beta.22
+
+Fix controls losing focus on update
+
 ## v2.0.0-beta.20
 
 Breaking changes:
