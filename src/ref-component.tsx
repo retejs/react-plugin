@@ -4,15 +4,18 @@ type RefUpdate = (ref: HTMLElement) => void
 type BaseProps = { init: RefUpdate, unmount: RefUpdate } & Record<string, unknown>
 
 export function RefComponent<Props extends BaseProps>({ init, unmount, ...props }: Props) {
-  const r = React.useRef<HTMLSpanElement | null>()
+  const ref = React.useRef<HTMLSpanElement>(null)
 
-  return <span {...props} ref={ref => {
-    if (r.current) {
-      unmount(r.current)
+  React.useEffect(() => {
+    const element = ref.current
+
+    return () => {
+      if (element) unmount(element)
     }
-    if (ref) {
-      r.current = ref
-      init(ref)
-    }
-  }}/>
+  }, [])
+  React.useEffect(() => {
+    if (ref.current) init(ref.current)
+  })
+
+  return <span {...props} ref={ref} />
 }
