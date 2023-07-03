@@ -1,9 +1,9 @@
 import { ReactElement } from 'react'
 import { BaseSchemes } from 'rete'
 
-import { ReactRenderPlugin } from '..'
+import { ReactPlugin } from '..'
 
 export type RenderPreset<Schemes extends BaseSchemes, T> = {
-  attach?: (plugin: ReactRenderPlugin<Schemes, T>) => void
-  render: (context: Extract<T, { type: 'render' }>, plugin: ReactRenderPlugin<Schemes, T>) => ReactElement | null | undefined
+  attach?: (plugin: ReactPlugin<Schemes, T>) => void
+  render: (context: Extract<T, { type: 'render' }>, plugin: ReactPlugin<Schemes, T>) => ReactElement | null | undefined
 }

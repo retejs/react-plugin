@@ -1,6 +1,6 @@
 {
-  "name": "rete-react-render-plugin",
-  "version": "2.0.0-beta.23",
+  "name": "rete-react-plugin",
+  "version": "2.0.0-beta.24",
   "description": "",
   "scripts": {
     "build": "rete build -c rete.config.ts",
@@ -17,10 +17,10 @@
   "homepage": "https://retejs.org",
   "repository": {
     "type": "git",
-    "url": "https://github.com/retejs/react-render-plugin.git"
+    "url": "https://github.com/retejs/react-plugin.git"
   },
   "bugs": {
-    "url": "https://github.com/retejs/react-render-plugin/issues"
+    "url": "https://github.com/retejs/react-plugin/issues"
   },
   "peerDependencies": {
     "react": "^16.8.6 || ^17 || ^18",

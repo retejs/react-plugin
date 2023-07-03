@@ -8,7 +8,7 @@ import replace from 'rollup-plugin-replace'
 
 export default <ReteOptions>{
   input: 'src/index.tsx',
-  name: 'ReteReactRenderPlugin',
+  name: 'ReteReactPlugin',
   globals: {
     'rete': 'Rete',
     'rete-area-plugin': 'ReteAreaPlugin',

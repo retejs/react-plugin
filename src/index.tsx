@@ -14,7 +14,7 @@ export * from './types'
 export { useRete } from './utils'
 
 export type Produces<Schemes extends BaseSchemes> =
-| { type: 'connectionpath', data: { payload: Schemes['Connection'], path?: string, points: Position[] } }
+  | { type: 'connectionpath', data: { payload: Schemes['Connection'], path?: string, points: Position[] } }
 
 type Requires<Schemes extends BaseSchemes> =
   | RenderSignal<'node', { payload: Schemes['Node'] }>
@@ -25,7 +25,7 @@ type Props = {
   createRoot?: (container: Element | DocumentFragment) => any
 }
 
-export class ReactRenderPlugin<Schemes extends BaseSchemes, T = Requires<Schemes>> extends Scope<Produces<Schemes>, [Requires<Schemes> | T]> {
+export class ReactPlugin<Schemes extends BaseSchemes, T = Requires<Schemes>> extends Scope<Produces<Schemes>, [Requires<Schemes> | T]> {
   renderer: Renderer
   presets: RenderPreset<Schemes, T>[] = []
 
