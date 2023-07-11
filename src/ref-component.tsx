@@ -3,6 +3,9 @@ import * as React from 'react'
 type RefUpdate = (ref: HTMLElement) => void
 type BaseProps = { init: RefUpdate, unmount: RefUpdate } & Record<string, unknown>
 
+/**
+ * Component for rendering various elements embedded in the React.js component tree.
+ */
 export function RefComponent<Props extends BaseProps>({ init, unmount, ...props }: Props) {
   const ref = React.useRef<HTMLSpanElement>(null)
 

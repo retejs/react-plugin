@@ -6,6 +6,9 @@ import { RenderPreset } from '../types'
 import { Minimap } from './components/Minimap'
 import { MinimapRender } from './types'
 
+/**
+ * Preset for rendering minimap.
+ */
 export function setup<Schemes extends BaseSchemes, K extends MinimapRender>(props?: { size?: number }): RenderPreset<Schemes, K> {
   return {
     render(context) {

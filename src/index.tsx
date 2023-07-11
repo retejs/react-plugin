@@ -13,6 +13,10 @@ export * from './shared'
 export * from './types'
 export { useRete } from './utils'
 
+/**
+ * Signals that can be emitted by the plugin
+ * @priority 9
+ */
 export type Produces<Schemes extends BaseSchemes> =
   | { type: 'connectionpath', data: { payload: Schemes['Connection'], path?: string, points: Position[] } }
 
@@ -21,10 +25,21 @@ type Requires<Schemes extends BaseSchemes> =
   | RenderSignal<'connection', { payload: Schemes['Connection'], start?: Position, end?: Position }>
   | { type: 'unmount', data: { element: HTMLElement } }
 
-type Props = {
+/**
+ * Plugin props
+ */
+export type Props = {
+  /** root factory for React.js 18+ */
   createRoot?: (container: Element | DocumentFragment) => any
 }
 
+/**
+ * React plugin. Renders nodes, connections and other elements using React.
+ * @priority 10
+ * @emits connectionpath
+ * @listens render
+ * @listens unmount
+ */
 export class ReactPlugin<Schemes extends BaseSchemes, T = Requires<Schemes>> extends Scope<Produces<Schemes>, [Requires<Schemes> | T]> {
   renderer: Renderer
   presets: RenderPreset<Schemes, T>[] = []
@@ -87,6 +102,10 @@ export class ReactPlugin<Schemes extends BaseSchemes, T = Requires<Schemes>> ext
     this.renderer.unmount(element)
   }
 
+  /**
+   * Adds a preset to the plugin.
+   * @param preset Preset that can render nodes, connections and other elements.
+   */
   public addPreset<K>(preset: RenderPreset<Schemes, CanAssignSignal<T, K> extends true ? K : 'Cannot apply preset. Provided signals are not compatible'>) {
     const local = preset as RenderPreset<Schemes, T>
 

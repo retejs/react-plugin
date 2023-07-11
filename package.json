@@ -4,7 +4,8 @@
   "description": "",
   "scripts": {
     "build": "rete build -c rete.config.ts",
-    "lint": "rete lint"
+    "lint": "rete lint",
+    "doc": "rete doc --entries src/index.tsx"
   },
   "author": "Vitaliy Stoliarov",
   "license": "MIT",

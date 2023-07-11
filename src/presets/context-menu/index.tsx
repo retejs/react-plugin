@@ -16,6 +16,9 @@ type Props = {
   customize?: Customize
 }
 
+/**
+ * Preset for rendering context menu.
+ */
 export function setup<Schemes extends BaseSchemes, K extends ContextMenuRender>(props?: Props): RenderPreset<Schemes, K> {
   const delay = typeof props?.delay === 'undefined' ? 1000 : props.delay
 

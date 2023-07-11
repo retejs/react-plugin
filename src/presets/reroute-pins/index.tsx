@@ -14,6 +14,9 @@ type Props = {
   pointerdown?: (id: string) => void
 }
 
+/**
+ * Preset for rendering pins.
+ */
 export function setup<Schemes extends BaseSchemes, K extends PinsRender>(props?: Props): RenderPreset<Schemes, K> {
   function renderPins(data: PinData, pointer: () => Position) {
     return <>
