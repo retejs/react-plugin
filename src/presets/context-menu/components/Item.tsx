@@ -55,6 +55,7 @@ export function ItemElement(props: Props) {
             data={item}
             delay={props.delay}
             hide={props.hide}
+            components={props.components}
           >{item.label}</ItemElement>
         ))}
       </Subitems>
