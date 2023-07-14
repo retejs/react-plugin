@@ -10,5 +10,5 @@ jobs:
     uses: retejs/.github/.github/workflows/update-docs.yml@main
     secrets: inherit
     with:
-      filename: 'rete-react-plugin'
-      package: rete-react-render
+      filename: '7.rete-react-plugin'
+      package: rete-react-plugin
