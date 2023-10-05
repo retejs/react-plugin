@@ -1,6 +1,7 @@
 import * as React from 'react'
 
 import { Position } from '../types'
+import { copyEvent, findReactRoot } from './utils'
 
 type Translate = (dx: number, dy: number) => void
 type StartEvent = { pageX: number, pageY: number }
@@ -34,7 +35,17 @@ export function useDrag(translate: Translate, getPointer: (e: StartEvent) => Pos
 
 export function useNoDrag(ref: React.MutableRefObject<HTMLElement | null>, disabled?: boolean) {
   React.useEffect(() => {
-    const handleClick = (e: PointerEvent) => !disabled && e.stopPropagation()
+    const handleClick = (e: PointerEvent) => {
+      if (disabled) return
+
+      const root = findReactRoot(e.target as HTMLElement)
+      const target = React.version.startsWith('16') ? document : root
+
+      if (target) {
+        e.stopPropagation()
+        target.dispatchEvent(copyEvent(e))
+      }
+    }
     const el = ref.current
 
     el?.addEventListener('pointerdown', handleClick)
