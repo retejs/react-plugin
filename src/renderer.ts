@@ -6,6 +6,24 @@ type CreateRoot = (container: Element | DocumentFragment) => any
 
 export function getRenderer(props?: { createRoot?: CreateRoot }): Renderer {
   const createRoot = props?.createRoot
+  const wrappers = new WeakMap<HTMLElement, HTMLElement>()
+
+  function getWrapper(container: HTMLElement) {
+    const wrapper = wrappers.get(container)
+
+    if (wrapper) return wrapper
+
+    const span = document.createElement('span')
+
+    container.appendChild(span)
+    return wrappers.set(container, span).get(container) as HTMLElement
+  }
+  function removeWrapper(container: HTMLElement) {
+    const wrapper = wrappers.get(container)
+
+    if (wrapper) wrapper.remove()
+    wrappers.delete(container)
+  }
 
   if (createRoot) {
     const roots = new WeakMap<HTMLElement, any>()
@@ -14,27 +32,36 @@ export function getRenderer(props?: { createRoot?: CreateRoot }): Renderer {
       mount: ((
         element: React.DOMElement<React.DOMAttributes<any>, any>,
         container: HTMLElement
-      ) : Element => {
-        if (!roots.has(container)) {
-          roots.set(container, createRoot(container))
+      ): Element => {
+        const wrapper = getWrapper(container)
+
+        if (!roots.has(wrapper)) {
+          roots.set(wrapper, createRoot(wrapper))
         }
-        const root = roots.get(container)
+        const root = roots.get(wrapper)
 
         return root.render(element)
       }) as ReactDOM.Renderer,
       unmount: (container: HTMLElement) => {
-        const root = roots.get(container)
+        const wrapper = getWrapper(container)
+        const root = roots.get(wrapper)
 
         if (root) {
           root.unmount()
-          roots.delete(container)
+          roots.delete(wrapper)
+          removeWrapper(container)
         }
       }
     }
   }
 
   return {
-    mount: ReactDOM.render,
-    unmount: ReactDOM.unmountComponentAtNode
+    mount: ((element: React.DOMElement<React.DOMAttributes<any>, any>, container: HTMLElement): Element => {
+      return ReactDOM.render(element, getWrapper(container))
+    }) as ReactDOM.Renderer,
+    unmount: (container: HTMLElement) => {
+      ReactDOM.unmountComponentAtNode(getWrapper(container))
+      removeWrapper(container)
+    }
   }
 }
