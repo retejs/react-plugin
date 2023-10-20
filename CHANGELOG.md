@@ -1,3 +1,10 @@
+## [2.0.3](https://github.com/retejs/react-plugin/compare/v2.0.2...v2.0.3) (2023-10-20)
+
+
+### Bug Fixes
+
+* no drag propagation ([267cfaa](https://github.com/retejs/react-plugin/commit/267cfaa2c2670b479f5d0a1a25b1c9bf12eff341))
+
 ## [2.0.2](https://github.com/retejs/react-plugin/compare/v2.0.1...v2.0.2) (2023-10-05)
 
 
