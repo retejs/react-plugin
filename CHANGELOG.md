@@ -1,3 +1,10 @@
+## [2.0.4](https://github.com/retejs/react-plugin/compare/v2.0.3...v2.0.4) (2023-10-24)
+
+
+### Bug Fixes
+
+* run flushSync in microtask ([fa2ba02](https://github.com/retejs/react-plugin/commit/fa2ba02255c075e14657f4b9ecc8710cdf2e9c1e))
+
 ## [2.0.3](https://github.com/retejs/react-plugin/compare/v2.0.2...v2.0.3) (2023-10-20)
 
 
