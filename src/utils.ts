@@ -19,20 +19,7 @@ export function syncFlush() {
   return {
     apply(f: () => void) {
       if (ready.current) {
-        try {
-          flushSync(f)
-        } catch (error) {
-          const message = error ? (error as Error).message : null
-
-          if (message && (
-            message.includes('flushSync was called from inside a lifecycle method')
-            || message.includes('React error #187')
-          )) {
-            f()
-            return
-          }
-          throw error
-        }
+        queueMicrotask(() => flushSync(f))
       } else {
         f()
       }
