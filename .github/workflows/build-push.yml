@@ -1,0 +1,9 @@
+name: Build and Push
+run-name: Build and Push to dist/${{ github.ref_name }}
+
+on:
+  workflow_dispatch:
+
+jobs:
+  push:
+    uses: retejs/.github/.github/workflows/build-push.yml@main
