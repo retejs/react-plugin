@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 
 import { Position } from '../types'
 import { copyEvent, findReactRoot } from './utils'

@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import { BaseSchemes, CanAssignSignal, Scope } from 'rete'
 
 import { RenderPreset } from './presets/types'

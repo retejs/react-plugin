@@ -1,5 +1,5 @@
 
-import * as React from 'react'
+import React from 'react'
 import { BaseSchemes } from 'rete'
 
 import { RenderPreset } from '../types'

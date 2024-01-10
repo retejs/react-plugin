@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 
 type RefUpdate = (ref: HTMLElement) => void
 type BaseProps = { init: RefUpdate, unmount: RefUpdate } & Record<string, unknown>
