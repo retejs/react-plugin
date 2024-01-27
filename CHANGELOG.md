@@ -1,3 +1,10 @@
+## [2.0.5](https://github.com/retejs/react-plugin/compare/v2.0.4...v2.0.5) (2024-01-27)
+
+
+### Bug Fixes
+
+* **build:** source maps ([131cbec](https://github.com/retejs/react-plugin/commit/131cbecfc8783f5912cc0b17a79d4c143b83cfc6))
+
 ## [2.0.4](https://github.com/retejs/react-plugin/compare/v2.0.3...v2.0.4) (2023-10-24)
 
 
