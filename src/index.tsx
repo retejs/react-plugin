@@ -28,10 +28,17 @@ type Requires<Schemes extends BaseSchemes> =
 /**
  * Plugin props
  */
-export type Props = {
+export interface BaseRendererProps {
   /** root factory for React.js 18+ */
   createRoot?: (container: Element | DocumentFragment) => any
 }
+export interface RendererPropsWithLocalStyles
+  extends Omit<BaseRendererProps, 'createRoot'>, Required<Pick<BaseRendererProps, 'createRoot'>>
+{
+  /** add styles to wrapper (needed for shadow dom encapsulation), requires React.js 18+ */
+  localStyles: boolean;
+}
+export type Props = BaseRendererProps | RendererPropsWithLocalStyles
 
 /**
  * React plugin. Renders nodes, connections and other elements using React.
@@ -46,7 +53,7 @@ export class ReactPlugin<Schemes extends BaseSchemes, T = Requires<Schemes>> ext
 
   constructor(props?: Props) {
     super('react-render')
-    this.renderer = getRenderer({ createRoot: props?.createRoot })
+    this.renderer = getRenderer({ ...props })
 
     this.addPipe(context => {
       if (!context || typeof context !== 'object' || !('type' in context)) return context

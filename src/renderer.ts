@@ -1,4 +1,6 @@
+import { createElement } from 'react'
 import * as ReactDOM from 'react-dom'
+import { StyleSheetManager } from 'styled-components'
 
 export type Renderer = { mount: ReactDOM.Renderer, unmount: (container: HTMLElement) => void }
 
@@ -8,7 +10,20 @@ export interface Root {
 }
 export type CreateRoot = (container: Element | DocumentFragment) => Root
 
-export function getRenderer(props?: { createRoot?: CreateRoot }): Renderer {
+export interface BaseRendererProps {
+  createRoot?: CreateRoot;
+}
+export interface RendererPropsWithLocalStyles
+  extends Omit<BaseRendererProps, 'createRoot'>, Required<Pick<BaseRendererProps, 'createRoot'>>
+{
+  localStyles: boolean;
+}
+function hasLocalStyles(props?: Partial<RendererPropsWithLocalStyles>): props is RendererPropsWithLocalStyles {
+  return props?.localStyles === true && !!props.createRoot
+}
+export type RendererProps = BaseRendererProps | RendererPropsWithLocalStyles
+
+export function getRenderer(props?: RendererProps): Renderer {
   const createRoot = props?.createRoot
   const wrappers = new WeakMap<HTMLElement, HTMLElement>()
 
@@ -44,7 +59,13 @@ export function getRenderer(props?: { createRoot?: CreateRoot }): Renderer {
           roots.set(wrapper, root)
         }
 
-        return root.render(element)
+        if (!hasLocalStyles(props)) {
+          return root.render(element)
+        }
+
+        const elementWithStyleTarget = createElement(StyleSheetManager, { target: container }, element)
+
+        return root.render(elementWithStyleTarget)
       }) as ReactDOM.Renderer,
       unmount: (container: HTMLElement) => {
         const wrapper = getWrapper(container)
