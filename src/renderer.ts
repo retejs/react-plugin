@@ -2,7 +2,11 @@ import * as ReactDOM from 'react-dom'
 
 export type Renderer = { mount: ReactDOM.Renderer, unmount: (container: HTMLElement) => void }
 
-type CreateRoot = (container: Element | DocumentFragment) => any
+export interface Root {
+  render(children: React.ReactElement): void;
+  unmount(): void;
+}
+export type CreateRoot = (container: Element | DocumentFragment) => Root
 
 export function getRenderer(props?: { createRoot?: CreateRoot }): Renderer {
   const createRoot = props?.createRoot
@@ -26,19 +30,19 @@ export function getRenderer(props?: { createRoot?: CreateRoot }): Renderer {
   }
 
   if (createRoot) {
-    const roots = new WeakMap<HTMLElement, any>()
+    const roots = new WeakMap<HTMLElement, Root>()
 
     return {
       mount: ((
-        element: React.DOMElement<React.DOMAttributes<any>, any>,
+        element: React.DOMElement<React.DOMAttributes<unknown>, Element>,
         container: HTMLElement
-      ): Element => {
+      ) => {
         const wrapper = getWrapper(container)
+        const root = roots.get(wrapper) || createRoot(wrapper)
 
         if (!roots.has(wrapper)) {
-          roots.set(wrapper, createRoot(wrapper))
+          roots.set(wrapper, root)
         }
-        const root = roots.get(wrapper)
 
         return root.render(element)
       }) as ReactDOM.Renderer,
@@ -56,7 +60,7 @@ export function getRenderer(props?: { createRoot?: CreateRoot }): Renderer {
   }
 
   return {
-    mount: ((element: React.DOMElement<React.DOMAttributes<any>, any>, container: HTMLElement): Element => {
+    mount: ((element: React.DOMElement<React.DOMAttributes<unknown>, Element>, container: HTMLElement): Element => {
       return ReactDOM.render(element, getWrapper(container))
     }) as ReactDOM.Renderer,
     unmount: (container: HTMLElement) => {
