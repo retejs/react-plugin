@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { useCallback, useRef } from 'react'
 import styled from 'styled-components'
-import { useElementSize } from 'usehooks-ts'
+import { useResizeObserver } from 'usehooks-ts'
 
 import { Rect, Transform, Translate } from '../types'
 import { px } from '../utils'
@@ -31,13 +31,12 @@ type Props = {
 }
 
 export function Minimap(props: Props) {
-  const container = useRef<HTMLElement | null>()
-  const [containerRef, { width: containerWidth }] = useElementSize()
-  const scale = (v: number) => v * containerWidth
-  const ref = useCallback((node: HTMLDivElement | null) => {
-    container.current = node
-    containerRef(node)
-  }, [containerRef])
+  const ref = useRef<HTMLDivElement>(null)
+  const { width = 0 } = useResizeObserver({
+    ref
+  })
+  const containerWidth = ref.current?.clientWidth || width
+  const scale = useCallback((v: number) => v * containerWidth, [containerWidth])
 
   return <Styles
     size={props.size}
@@ -52,8 +51,8 @@ export function Minimap(props: Props) {
     onDoubleClick={e => {
       e.stopPropagation()
       e.preventDefault()
-      if (!container.current) return
-      const box = container.current.getBoundingClientRect()
+      if (!ref.current) return
+      const box = ref.current.getBoundingClientRect()
       const x = (e.clientX - box.left) / (props.size * props.ratio)
       const y = (e.clientY - box.top) / (props.size * props.ratio)
 
@@ -62,7 +61,7 @@ export function Minimap(props: Props) {
     ref={ref}
     data-testid="minimap"
   >
-    {containerWidth && props.nodes.map((node, i) => (
+    {containerWidth ? props.nodes.map((node, i) => (
       <MiniNode
         key={i}
         left={scale(node.left)}
@@ -70,7 +69,7 @@ export function Minimap(props: Props) {
         width={scale(node.width)}
         height={scale(node.height)}
       />
-    ))}
+    )) : null}
     <MiniViewport
       {...props.viewport}
       start={props.start}
