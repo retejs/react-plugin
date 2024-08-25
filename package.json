@@ -1,6 +1,6 @@
 {
   "name": "rete-react-plugin",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "description": "",
   "scripts": {
     "build": "rete build -c rete.config.ts",

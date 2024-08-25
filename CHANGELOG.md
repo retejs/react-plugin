@@ -1,3 +1,10 @@
+## [2.0.6](https://github.com/retejs/react-plugin/compare/v2.0.5...v2.0.6) (2024-08-25)
+
+
+### Bug Fixes
+
+* minimap size ([52ed15f](https://github.com/retejs/react-plugin/commit/52ed15f2248c16c0429e30a27be58f6f037eaf91))
+
 ## [2.0.5](https://github.com/retejs/react-plugin/compare/v2.0.4...v2.0.5) (2024-01-27)
 
 
