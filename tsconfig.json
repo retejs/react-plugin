@@ -1,8 +1,6 @@
 {
     "extends": "rete-cli/configs/tsconfig.json",
     "compilerOptions": {
-        "strict": true,
-        "skipLibCheck": true,
         "jsx": "react"
     },
     "include": ["src"]
