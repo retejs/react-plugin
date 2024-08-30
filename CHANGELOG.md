@@ -1,3 +1,10 @@
+## [2.0.7](https://github.com/retejs/react-plugin/compare/v2.0.6...v2.0.7) (2024-08-30)
+
+
+### Bug Fixes
+
+* update cli and fix linting errors ([95cc34f](https://github.com/retejs/react-plugin/commit/95cc34fabb91610bfcfb78fd8ba5cc81928dcee8))
+
 ## [2.0.6](https://github.com/retejs/react-plugin/compare/v2.0.5...v2.0.6) (2024-08-25)
 
 
