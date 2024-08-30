@@ -3,7 +3,7 @@ import { RenderSignal } from '../../types'
 export type Rect = {
   width: number
   height: number
-  left: number,
+  left: number
   top: number
 }
 export type Transform = {

@@ -12,7 +12,7 @@ const Input = styled.input<{ styles?: (props: any) => any }>`
   border: 1px solid #999;
   font-size: 110%;
   box-sizing: border-box;
-  ${props => props.styles && props.styles(props)}
+  ${props => props.styles?.(props)}
 `
 
 export function Control<N extends 'text' | 'number'>(props: { data: ClassicPreset.InputControl<N>, styles?: () => any }) {

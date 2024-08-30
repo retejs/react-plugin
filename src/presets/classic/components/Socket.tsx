@@ -8,7 +8,7 @@ const Styles = styled.div`
     display: inline-block;
     cursor: pointer;
     border: 1px solid white;
-    border-radius: ${$socketsize/2.0}px;
+    border-radius: ${$socketsize / 2.0}px;
     width: ${$socketsize}px;
     height: ${$socketsize}px;
     vertical-align: middle;
@@ -24,7 +24,7 @@ const Styles = styled.div`
 `
 
 const Hoverable = styled.div`
-    border-radius: ${($socketsize + $socketmargin * 2)/2.0}px;
+    border-radius: ${($socketsize + $socketmargin * 2) / 2.0}px;
     padding: ${$socketmargin}px;
     &:hover ${Styles} {
       border-width: 4px;

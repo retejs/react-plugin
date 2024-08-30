@@ -88,7 +88,7 @@ export class ReactPlugin<Schemes extends BaseSchemes, T = Requires<Schemes>> ext
       if (!result) continue
 
       const reactElement = (
-        <Root rendered={() => parent.emit({ type: 'rendered', data: context.data } as T)}>
+        <Root rendered={() => void parent.emit({ type: 'rendered', data: context.data } as T)}>
           {result}
         </Root>
       )

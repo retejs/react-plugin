@@ -39,7 +39,9 @@ export function useNoDrag(ref: React.MutableRefObject<HTMLElement | null>, disab
       if (disabled) return
 
       const root = findReactRoot(e.target as HTMLElement)
-      const target = React.version.startsWith('16') ? document : root
+      const target = React.version.startsWith('16')
+        ? document
+        : root
 
       if (target) {
         e.stopPropagation()

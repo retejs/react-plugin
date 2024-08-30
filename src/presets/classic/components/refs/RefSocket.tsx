@@ -17,14 +17,19 @@ export function RefSocket<Scheme extends ClassicScheme>({ name, emit, nodeId, si
   return <RefComponent
     {...props}
     className={name}
-    init={ref => emit({ type: 'render', data: {
-      type: 'socket',
-      side,
-      key: socketKey,
-      nodeId,
-      element: ref,
-      payload: payload as GetSockets<Scheme['Node']>
-    } })}
-    unmount={ref => emit({ type: 'unmount', data: { element: ref } })}
+    init={ref => {
+      emit({ type: 'render',
+        data: {
+          type: 'socket',
+          side,
+          key: socketKey,
+          nodeId,
+          element: ref,
+          payload: payload as GetSockets<Scheme['Node']>
+        } })
+    }}
+    unmount={ref => {
+      emit({ type: 'unmount', data: { element: ref } })
+    }}
   />
 }

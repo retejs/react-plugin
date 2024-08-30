@@ -1,5 +1,5 @@
 import * as React from 'react'
-import styled, { } from 'styled-components'
+import styled from 'styled-components'
 
 import { useDrag } from '../../shared/drag'
 import { Position } from '../../types'
@@ -11,20 +11,24 @@ const Styles = styled.div<{ selected?: boolean }>`
   width: ${pinSize}px;
   height: ${pinSize}px;
   box-sizing: border-box;
-  background: ${props => props.selected ? '#ffd92c' : 'steelblue'};
+  background: ${props => props.selected
+    ? '#ffd92c'
+    : 'steelblue'};
   border: 2px solid white;
   border-radius: ${pinSize}px;
 `
 
 type Props = PinType & {
-    contextMenu(): void
-    translate(dx: number, dy: number): void
-    pointerdown(): void
-    pointer(): Position
+  contextMenu(): void
+  translate(dx: number, dy: number): void
+  pointerdown(): void
+  pointer(): Position
 }
 
 export function Pin(props: Props) {
-  const drag = useDrag((dx, dy) => props.translate(dx, dy), props.pointer)
+  const drag = useDrag((dx, dy) => {
+    props.translate(dx, dy)
+  }, props.pointer)
   const { x, y } = props.position
 
   return (

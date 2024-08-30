@@ -14,8 +14,12 @@ export const NodeStyles = styled.div<NodeExtraData & { selected: boolean, styles
     border-radius: 10px;
     cursor: pointer;
     box-sizing: border-box;
-    width: ${props => Number.isFinite(props.width) ? `${props.width}px` : `${$nodewidth}px`};
-    height: ${props => Number.isFinite(props.height) ? `${props.height}px` : 'auto'};
+    width: ${props => Number.isFinite(props.width)
+    ? `${props.width}px`
+    : `${$nodewidth}px`};
+    height: ${props => Number.isFinite(props.height)
+    ? `${props.height}px`
+    : 'auto'};
     padding-bottom: 6px;
     position: relative;
     user-select: none;
@@ -70,7 +74,7 @@ export const NodeStyles = styled.div<NodeExtraData & { selected: boolean, styles
         display: block;
         padding: ${$socketmargin}px ${$socketsize / 2 + $socketmargin}px;
     }
-    ${props => props.styles && props.styles(props)}
+    ${props => props.styles?.(props)}
 `
 
 function sortByIndex<T extends [string, undefined | { index?: number }][]>(entries: T) {
@@ -83,13 +87,12 @@ function sortByIndex<T extends [string, undefined | { index?: number }][]>(entri
 }
 
 type Props<S extends ClassicScheme> = {
-    data: S['Node'] & NodeExtraData
-    styles?: () => any
-    emit: RenderEmit<S>
+  data: S['Node'] & NodeExtraData
+  styles?: () => any
+  emit: RenderEmit<S>
 }
 export type NodeComponent<Scheme extends ClassicScheme> = (props: Props<Scheme>) => JSX.Element
 
-// eslint-disable-next-line max-statements
 export function Node<Scheme extends ClassicScheme>(props: Props<Scheme>) {
   const inputs = Object.entries(props.data.inputs)
   const outputs = Object.entries(props.data.outputs)
@@ -111,57 +114,55 @@ export function Node<Scheme extends ClassicScheme>(props: Props<Scheme>) {
     >
       <div className="title" data-testid="title">{label}</div>
       {/* Outputs */}
-      {outputs.map(([key, output]) => (
-        output && <div className="output" key={key} data-testid={`output-${key}`}>
-          <div className="output-title" data-testid="output-title">{output?.label}</div>
-          <RefSocket
-            name="output-socket"
-            side="output"
-            socketKey={key}
-            nodeId={id}
-            emit={props.emit}
-            payload={output.socket}
-            data-testid="output-socket"
-          />
-        </div>
-      ))}
+      {outputs.map(([key, output]) => output && <div className="output" key={key} data-testid={`output-${key}`}>
+        <div className="output-title" data-testid="output-title">{output.label}</div>
+        <RefSocket
+          name="output-socket"
+          side="output"
+          socketKey={key}
+          nodeId={id}
+          emit={props.emit}
+          payload={output.socket}
+          data-testid="output-socket"
+        />
+      </div>)}
       {/* Controls */}
       {controls.map(([key, control]) => {
-        return control ? <RefControl
-          key={key}
-          name="control"
-          emit={props.emit}
-          payload={control}
-          data-testid={`control-${key}`}
-        /> : null
+        return control
+          ? <RefControl
+            key={key}
+            name="control"
+            emit={props.emit}
+            payload={control}
+            data-testid={`control-${key}`}
+          />
+          : null
       })}
       {/* Inputs */}
-      {inputs.map(([key, input]) => (
-        input && <div className="input" key={key} data-testid={`input-${key}`}>
-          <RefSocket
-            name="input-socket"
-            side="input"
-            socketKey={key}
-            nodeId={id}
+      {inputs.map(([key, input]) => input && <div className="input" key={key} data-testid={`input-${key}`}>
+        <RefSocket
+          name="input-socket"
+          side="input"
+          socketKey={key}
+          nodeId={id}
+          emit={props.emit}
+          payload={input.socket}
+          data-testid="input-socket"
+        />
+        {input && (!input.control || !input.showControl)
+        && <div className="input-title" data-testid="input-title">{input.label}</div>
+        }
+        {input.control && input.showControl && (
+          <RefControl
+            key={key}
+            name="input-control"
             emit={props.emit}
-            payload={input.socket}
-            data-testid="input-socket"
+            payload={input.control}
+            data-testid="input-control"
           />
-          {input && (!input.control || !input.showControl) && (
-            <div className="input-title" data-testid="input-title">{input?.label}</div>
-          )}
-          {input?.control && input?.showControl && (
-            <RefControl
-              key={key}
-              name="input-control"
-              emit={props.emit}
-              payload={input.control}
-              data-testid="input-control"
-            />
-          )
-          }
-        </div>
-      ))}
+        )
+        }
+      </div>)}
     </NodeStyles>
   )
 }

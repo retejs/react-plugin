@@ -2,7 +2,7 @@ import { ClassicPreset as Classic, GetSchemes, NodeId } from 'rete'
 
 import { Position, RenderSignal } from '../../types'
 
-type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends ((k: infer I)=> void)
+type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends ((k: infer I) => void)
   ? I
   : never
 export type GetControls<

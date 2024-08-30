@@ -33,17 +33,30 @@ type Props = {
 
 export function ItemElement(props: Props) {
   const [visibleSubitems, setVisibleSubitems] = React.useState(false)
-  const setInvisibile = React.useCallback(() => setVisibleSubitems(false), [setVisibleSubitems])
+  const setInvisibile = React.useCallback(() => {
+    setVisibleSubitems(false)
+  }, [setVisibleSubitems])
   const [hide, cancelHide] = useDebounce(setInvisibile, props.delay)
   const Component = props.components?.item?.(props.data) || ItemStyle
   const Subitems = props.components?.subitems?.(props.data) || SubitemStyles
 
   return <Component
-    onClick={e => { e.stopPropagation(); props.data.handler(); props.hide() }}
+    onClick={e => {
+      e.stopPropagation()
+      props.data.handler()
+      props.hide()
+    }}
     hasSubitems={Boolean(props.data.subitems)}
-    onPointerDown={e => e.stopPropagation()}
-    onPointerOver={() => { cancelHide(); setVisibleSubitems(true) }}
-    onPointerLeave={() => hide && hide()}
+    onPointerDown={e => {
+      e.stopPropagation()
+    }}
+    onPointerOver={() => {
+      cancelHide()
+      setVisibleSubitems(true)
+    }}
+    onPointerLeave={() => {
+      if (hide) hide()
+    }}
     data-testid="context-menu-item"
   >
     {props.children}

@@ -1,3 +1,4 @@
+/* eslint-disable react/no-render-return-value */
 import * as ReactDOM from 'react-dom'
 
 export type Renderer = { mount: ReactDOM.Renderer, unmount: (container: HTMLElement) => void }
@@ -16,7 +17,7 @@ export function getRenderer(props?: { createRoot?: CreateRoot }): Renderer {
     const span = document.createElement('span')
 
     container.appendChild(span)
-    return wrappers.set(container, span).get(container) as HTMLElement
+    return wrappers.set(container, span).get(container)!
   }
   function removeWrapper(container: HTMLElement) {
     const wrapper = wrappers.get(container)
@@ -26,7 +27,7 @@ export function getRenderer(props?: { createRoot?: CreateRoot }): Renderer {
   }
 
   if (createRoot) {
-    const roots = new WeakMap<HTMLElement, any>()
+    const roots = new WeakMap<HTMLElement>()
 
     return {
       mount: ((
