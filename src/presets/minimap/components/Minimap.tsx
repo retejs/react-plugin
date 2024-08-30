@@ -21,13 +21,13 @@ const Styles = styled.div<{ size: number }>`
 `
 
 type Props = {
-    size: number
-    ratio: number
-    nodes: Rect[]
-    viewport: Rect
-    start(): Transform
-    translate: Translate
-    point(x: number, y: number): void
+  size: number
+  ratio: number
+  nodes: Rect[]
+  viewport: Rect
+  start(): Transform
+  translate: Translate
+  point(x: number, y: number): void
 }
 
 export function Minimap(props: Props) {
@@ -61,15 +61,15 @@ export function Minimap(props: Props) {
     ref={ref}
     data-testid="minimap"
   >
-    {containerWidth ? props.nodes.map((node, i) => (
-      <MiniNode
+    {containerWidth
+      ? props.nodes.map((node, i) => <MiniNode
         key={i}
         left={scale(node.left)}
         top={scale(node.top)}
         width={scale(node.width)}
         height={scale(node.height)}
-      />
-    )) : null}
+      />)
+      : null}
     <MiniViewport
       {...props.viewport}
       start={props.start}

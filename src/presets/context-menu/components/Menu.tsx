@@ -27,16 +27,18 @@ export function Menu(props: Props) {
   const [hide, cancelHide] = useDebounce(props.onHide, props.delay)
   const [filter, setFilter] = React.useState('')
   const filterRegexp = new RegExp(filter, 'i')
-  const filteredList = props.items.filter(item => (
-    item.label.match(filterRegexp)
-  ))
+  const filteredList = props.items.filter(item => item.label.match(filterRegexp))
   const Component = props.components?.main?.() || Styles
   const Common = props.components?.common?.() || CommonStyle
 
   return <Component
-    onMouseOver={() => cancelHide()}
+    onMouseOver={() => {
+      cancelHide()
+    }}
     onMouseLeave={() => hide && hide()}
-    onWheel={e => e.stopPropagation()}
+    onWheel={e => {
+      e.stopPropagation()
+    }}
     data-testid="context-menu"
   >
     {props.searchBar && (

@@ -17,7 +17,7 @@ const Path = styled.path<{ styles?: (props: any) => any }>`
     stroke-width: 5px;
     stroke: steelblue;
     pointer-events: auto;
-    ${props => props.styles && props.styles(props)}
+    ${props => props.styles?.(props)}
 `
 
 export function Connection(props: { data: ClassicScheme['Connection'] & { isLoop?: boolean }, styles?: () => any }) {

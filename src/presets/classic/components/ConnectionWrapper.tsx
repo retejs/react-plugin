@@ -15,32 +15,48 @@ export const ConnectionContext = createContext<ConnectionContextValue>({
 type PositionWatcher = (cb: (value: Position) => void) => (() => void)
 
 type Props = {
-    children: JSX.Element,
-    start: Position | PositionWatcher,
-    end: Position | PositionWatcher,
-    path(start: Position, end: Position): Promise<null | string>
+  children: React.JSX.Element
+  start: Position | PositionWatcher
+  end: Position | PositionWatcher
+  path(start: Position, end: Position): Promise<null | string>
 }
 
 export function ConnectionWrapper(props: Props) {
   const { children } = props
   const [computedStart, setStart] = useState<Position | null>(null)
-  const [computedEnd, setEnd] = useState<Position| null>(null)
+  const [computedEnd, setEnd] = useState<Position | null>(null)
   const [path, setPath] = useState<string | null>(null)
-  const start = 'x' in props.start ? props.start : computedStart
-  const end = 'x' in props.end ? props.end : computedEnd
+  const start = 'x' in props.start
+    ? props.start
+    : computedStart
+  const end = 'x' in props.end
+    ? props.end
+    : computedEnd
   const flush = syncFlush()
 
   useEffect(() => {
-    const unwatch1 = typeof props.start === 'function' && props.start(s => flush.apply(() => setStart(s)))
-    const unwatch2 = typeof props.end === 'function' && props.end(s => flush.apply(() => setEnd(s)))
+    const unwatch1 = typeof props.start === 'function' && props.start(s => {
+      flush.apply(() => {
+        setStart(s)
+      })
+    })
+    const unwatch2 = typeof props.end === 'function' && props.end(s => {
+      flush.apply(() => {
+        setEnd(s)
+      })
+    })
 
     return () => {
-      unwatch1 && unwatch1()
-      unwatch2 && unwatch2()
+      if (unwatch1) unwatch1()
+      if (unwatch2) unwatch2()
     }
   }, [])
   useEffect(() => {
-    if (start && end) props.path(start, end).then(p => flush.apply(() => setPath(p)))
+    if (start && end) void props.path(start, end).then(p => {
+      flush.apply(() => {
+        setPath(p)
+      })
+    })
   }, [start, end])
 
   return (

@@ -43,43 +43,47 @@ type ClassicProps<Schemes extends ClassicScheme, K> = {
 /**
  * Classic preset for rendering nodes, connections, controls and sockets.
  */
-export function setup<Schemes extends ClassicScheme, K extends ReactArea2D<Schemes>>(
-  props?: ClassicProps<Schemes, K>
-): RenderPreset<Schemes, K> {
+export function setup<
+  Schemes extends ClassicScheme, K extends ReactArea2D<Schemes>
+>(props?: ClassicProps<Schemes, K>): RenderPreset<Schemes, K> {
   const positionWatcher = typeof props?.socketPositionWatcher === 'undefined'
     ? getDOMSocketPosition<Schemes, K>()
-    : props?.socketPositionWatcher
+    : props.socketPositionWatcher
   const { node, connection, socket, control } = props?.customize || {}
 
   return {
     attach(plugin) {
       positionWatcher.attach(plugin as unknown as Scope<never, [K]>)
     },
-    // eslint-disable-next-line max-statements, complexity
+    // eslint-disable-next-line complexity
     render(context, plugin) {
       if (context.data.type === 'node') {
         const parent = plugin.parentScope()
-        const Component = (node ? node(context.data) : Node) as typeof Node
+        const Component = (node
+          ? node(context.data)
+          : Node) as typeof Node
 
-        return (Component &&
-          <Component
+        return Component
+          && <Component
             data={context.data.payload}
-            emit={data => parent.emit(data as any)}
+            emit={data => void parent.emit(data as any)}
           />
-        )
       } else if (context.data.type === 'connection') {
-        const Component = (connection ? connection(context.data) : Connection) as typeof Connection
+        const Component = (connection
+          ? connection(context.data)
+          : Connection) as typeof Connection
         const payload = context.data.payload
         const { sourceOutput, targetInput, source, target } = payload
 
-        return (Component &&
-          <ConnectionWrapper
+        return Component
+          && <ConnectionWrapper
             start={context.data.start || (change => positionWatcher.listen(source, 'output', sourceOutput, change))}
             end={context.data.end || (change => positionWatcher.listen(target, 'input', targetInput, change))}
             path={async (start, end) => {
               type FixImplicitAny = typeof plugin.__scope.produces | undefined
               const response: FixImplicitAny = await plugin.emit({
-                type: 'connectionpath', data: {
+                type: 'connectionpath',
+                data: {
                   payload,
                   points: [start, end]
                 }
@@ -100,20 +104,18 @@ export function setup<Schemes extends ClassicScheme, K extends ReactArea2D<Schem
           >
             <Component data={context.data.payload} />
           </ConnectionWrapper>
-        )
       } else if (context.data.type === 'socket') {
-        const Component = (socket ? socket(context.data) : Socket) as typeof Socket
+        const Component = (socket
+          ? socket(context.data)
+          : Socket) as typeof Socket
 
-        return (Component && context.data.payload && <Component data={context.data.payload} />
-        )
+        return Component && context.data.payload && <Component data={context.data.payload} />
       } else if (context.data.type === 'control') {
         const Component = control && context.data.payload
           ? control(context.data)
-          : (
-            context.data.payload instanceof ClassicPreset.InputControl
-              ? Control
-              : null
-          )
+          : context.data.payload instanceof ClassicPreset.InputControl
+            ? Control
+            : null
 
         return Component && <Component data={context.data.payload as any} />
       }

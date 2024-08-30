@@ -1,7 +1,8 @@
+import * as React from 'react'
 import { useEffect, useRef, useState } from 'react'
 import { flushSync } from 'react-dom'
 
-export function Root({ children, rendered }: { children: JSX.Element | null, rendered: () => void }) {
+export function Root({ children, rendered }: { children: React.JSX.Element | null, rendered: () => void }) {
   useEffect(() => {
     rendered()
   })
@@ -19,7 +20,9 @@ export function syncFlush() {
   return {
     apply(f: () => void) {
       if (ready.current) {
-        queueMicrotask(() => flushSync(f))
+        queueMicrotask(() => {
+          flushSync(f)
+        })
       } else {
         f()
       }
@@ -39,7 +42,7 @@ export function useRete<T extends { destroy(): void }>(create: (el: HTMLElement)
         editorRef.current.destroy()
         container.innerHTML = ''
       }
-      create(container).then((value) => {
+      void create(container).then(value => {
         editorRef.current = value
         setEditor(value)
       })

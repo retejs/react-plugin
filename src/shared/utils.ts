@@ -1,8 +1,9 @@
 export function copyEvent<T extends Event & Record<string, any>>(e: T) {
-  const newEvent = new (e.constructor as { new(type: string): T })(e.type)
+  const newEvent = new (e.constructor as new(type: string) => T)(e.type)
   let current = newEvent
 
-  while ((current = Object.getPrototypeOf(current))) {
+  // eslint-disable-next-line no-cond-assign
+  while (current = Object.getPrototypeOf(current)) {
     const keys = Object.getOwnPropertyNames(current)
 
     for (const k of keys) {

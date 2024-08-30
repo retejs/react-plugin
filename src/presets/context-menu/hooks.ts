@@ -4,7 +4,9 @@ export function useDebounce(cb: () => void, timeout: number): [null | (() => voi
   const ref = useRef<ReturnType<typeof setTimeout>>()
 
   function cancel() {
-    ref.current && clearTimeout(ref.current)
+    if (ref.current) {
+      clearTimeout(ref.current)
+    }
   }
   const func = () => {
     cancel()

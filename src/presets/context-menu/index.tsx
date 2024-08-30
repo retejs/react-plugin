@@ -1,4 +1,3 @@
-
 import * as React from 'react'
 import { BaseSchemes } from 'rete'
 
@@ -20,7 +19,9 @@ type Props = {
  * Preset for rendering context menu.
  */
 export function setup<Schemes extends BaseSchemes, K extends ContextMenuRender>(props?: Props): RenderPreset<Schemes, K> {
-  const delay = typeof props?.delay === 'undefined' ? 1000 : props.delay
+  const delay = typeof props?.delay === 'undefined'
+    ? 1000
+    : props.delay
 
   return {
     render(context) {

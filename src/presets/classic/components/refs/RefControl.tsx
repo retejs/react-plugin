@@ -14,11 +14,16 @@ export function RefControl<Scheme extends ClassicScheme>({ name, emit, payload, 
   return <RefComponent
     {...props}
     className={name}
-    init={ref => emit({ type: 'render', data: {
-      type: 'control',
-      element: ref,
-      payload: payload as GetControls<Scheme['Node']>
-    } })}
-    unmount={ref => emit({ type: 'unmount', data: { element: ref } })}
+    init={ref => {
+      emit({ type: 'render',
+        data: {
+          type: 'control',
+          element: ref,
+          payload: payload as GetControls<Scheme['Node']>
+        } })
+    }}
+    unmount={ref => {
+      emit({ type: 'unmount', data: { element: ref } })
+    }}
   />
 }
