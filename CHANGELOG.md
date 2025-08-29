@@ -1,3 +1,10 @@
+# [2.1.0](https://github.com/retejs/react-plugin/compare/v2.0.7...v2.1.0) (2025-08-29)
+
+
+### Features
+
+* support react 19 ([494db41](https://github.com/retejs/react-plugin/commit/494db417afbcedd0756338ecd9784110dfec0e95))
+
 ## [2.0.7](https://github.com/retejs/react-plugin/compare/v2.0.6...v2.0.7) (2024-08-30)
 
 
