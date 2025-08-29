@@ -33,13 +33,13 @@ export function Pin(props: Props) {
 
   return (
     <Styles
-      onPointerDown={e => {
+      onPointerDown={(e: React.PointerEvent) => {
         e.stopPropagation()
         e.preventDefault()
         drag.start(e)
         props.pointerdown()
       }}
-      onContextMenu={e => {
+      onContextMenu={(e: React.MouseEvent) => {
         e.stopPropagation()
         e.preventDefault()
         props.contextMenu()

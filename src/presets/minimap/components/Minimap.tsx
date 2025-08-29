@@ -33,7 +33,10 @@ type Props = {
 export function Minimap(props: Props) {
   const ref = useRef<HTMLDivElement>(null)
   const { width = 0 } = useResizeObserver({
-    ref
+    // https://github.com/juliencrn/usehooks-ts/issues/663
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    ref: ref
   })
   const containerWidth = ref.current?.clientWidth || width
   const scale = useCallback((v: number) => v * containerWidth, [containerWidth])
@@ -44,11 +47,11 @@ export function Minimap(props: Props) {
       width: px(props.size * props.ratio),
       height: px(props.size)
     }}
-    onPointerDown={e => {
+    onPointerDown={(e: React.PointerEvent) => {
       e.stopPropagation()
       e.preventDefault()
     }}
-    onDoubleClick={e => {
+    onDoubleClick={(e: React.MouseEvent) => {
       e.stopPropagation()
       e.preventDefault()
       if (!ref.current) return

@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 
 export function useDebounce(cb: () => void, timeout: number): [null | (() => void), () => void] {
-  const ref = useRef<ReturnType<typeof setTimeout>>()
+  const ref = useRef<ReturnType<typeof setTimeout>>(undefined)
 
   function cancel() {
     if (ref.current) {

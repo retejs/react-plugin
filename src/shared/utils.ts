@@ -21,7 +21,7 @@ export function copyEvent<T extends Event & Record<string, any>>(e: T) {
 const rootPrefix = '__reactContainer$'
 
 type Keys = `${typeof rootPrefix}${string}` | '_reactRootContainer'
-type ReactNode = { [key in Keys]?: unknown } & HTMLElement
+type ReactNode = Partial<Record<Keys, unknown>> & HTMLElement
 
 export function findReactRoot(element: HTMLElement) {
   let current: ReactNode | null = element as ReactNode

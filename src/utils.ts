@@ -32,9 +32,10 @@ export function syncFlush() {
 
 export function useRete<T extends { destroy(): void }>(create: (el: HTMLElement) => Promise<T>) {
   const [container, setContainer] = useState<null | HTMLElement>(null)
-  const editorRef = useRef<T>()
+  const editorRef = useRef<T>(undefined)
   const [editor, setEditor] = useState<T | null>(null)
-  const ref = useRef(null)
+  // compatible RefObject type for React 18 and earlier
+  const ref = useRef<HTMLDivElement>(null) as React.RefObject<HTMLDivElement>
 
   useEffect(() => {
     if (container) {

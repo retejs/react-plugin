@@ -24,9 +24,15 @@ export function setup<Schemes extends BaseSchemes, K extends PinsRender>(props?:
         <Pin
           {...pin}
           key={pin.id}
-          contextMenu={() => props?.contextMenu && props.contextMenu(pin.id)}
-          translate={(dx, dy) => props?.translate && props.translate(pin.id, dx, dy)}
-          pointerdown={() => props?.pointerdown && props.pointerdown(pin.id)}
+          contextMenu={() => {
+            props?.contextMenu?.(pin.id)
+          }}
+          translate={(dx, dy) => {
+            props?.translate?.(pin.id, dx, dy)
+          }}
+          pointerdown={() => {
+            props?.pointerdown?.(pin.id)
+          }}
           pointer={pointer}
         />
       ))}

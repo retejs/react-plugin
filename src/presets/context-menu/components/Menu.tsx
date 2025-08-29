@@ -35,8 +35,10 @@ export function Menu(props: Props) {
     onMouseOver={() => {
       cancelHide()
     }}
-    onMouseLeave={() => hide && hide()}
-    onWheel={e => {
+    onMouseLeave={() => {
+      hide?.()
+    }}
+    onWheel={(e: React.WheelEvent) => {
       e.stopPropagation()
     }}
     data-testid="context-menu"

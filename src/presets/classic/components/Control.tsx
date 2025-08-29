@@ -31,7 +31,7 @@ export function Control<N extends 'text' | 'number'>(props: { data: ClassicPrese
       type={props.data.type}
       ref={ref}
       readOnly={props.data.readonly}
-      onChange={e => {
+      onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
         const val = (props.data.type === 'number'
           ? +e.target.value
           : e.target.value) as typeof props.data['value']
