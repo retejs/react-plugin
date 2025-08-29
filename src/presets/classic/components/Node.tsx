@@ -15,11 +15,11 @@ export const NodeStyles = styled.div<NodeExtraData & { selected: boolean, styles
     cursor: pointer;
     box-sizing: border-box;
     width: ${props => Number.isFinite(props.width)
-    ? `${props.width}px`
-    : `${$nodewidth}px`};
+      ? `${props.width}px`
+      : `${$nodewidth}px`};
     height: ${props => Number.isFinite(props.height)
-    ? `${props.height}px`
-    : 'auto'};
+      ? `${props.height}px`
+      : 'auto'};
     padding-bottom: 6px;
     position: relative;
     user-select: none;

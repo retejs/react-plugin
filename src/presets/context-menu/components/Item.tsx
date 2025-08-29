@@ -41,13 +41,13 @@ export function ItemElement(props: Props) {
   const Subitems = props.components?.subitems?.(props.data) || SubitemStyles
 
   return <Component
-    onClick={e => {
+    onClick={(e: React.MouseEvent) => {
       e.stopPropagation()
       props.data.handler()
       props.hide()
     }}
     hasSubitems={Boolean(props.data.subitems)}
-    onPointerDown={e => {
+    onPointerDown={(e: React.PointerEvent) => {
       e.stopPropagation()
     }}
     onPointerOver={() => {

@@ -2,7 +2,7 @@ import * as React from 'react'
 import { BaseSchemes, CanAssignSignal, Scope } from 'rete'
 
 import { RenderPreset } from './presets/types'
-import { getRenderer, Renderer } from './renderer'
+import { CreateRoot, getRenderer, HasLegacyRender, Renderer } from './renderer'
 import { Position, RenderSignal } from './types'
 import { Root } from './utils'
 
@@ -28,9 +28,11 @@ type Requires<Schemes extends BaseSchemes> =
 /**
  * Plugin props
  */
-export type Props = {
+export type Props = HasLegacyRender extends true ? {
   /** root factory for React.js 18+ */
-  createRoot?: (container: Element | DocumentFragment) => any
+  createRoot?: CreateRoot
+} : {
+  createRoot: CreateRoot
 }
 
 /**
@@ -44,7 +46,7 @@ export class ReactPlugin<Schemes extends BaseSchemes, T = Requires<Schemes>> ext
   renderer: Renderer
   presets: RenderPreset<Schemes, T>[] = []
 
-  constructor(props?: Props) {
+  constructor(...[props]: HasLegacyRender extends true ? [props?: Props] : [props: Props]) {
     super('react-render')
     this.renderer = getRenderer({ createRoot: props?.createRoot })
 

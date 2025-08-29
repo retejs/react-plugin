@@ -7,6 +7,11 @@ export default tseslint.config(
   ...configs,
   {
     files: ['**/*.{js,jsx,mjs,cjs,ts,tsx}'],
+    settings: {
+      react: {
+        version: 'detect',
+      }
+    },
     plugins: {
       react,
     },
@@ -44,7 +49,8 @@ export default tseslint.config(
       ],
       '@typescript-eslint/no-deprecated': 'warn',
       'react/no-deprecated': 'warn',
-      '@typescript-eslint/unbound-method': 'off'
+      '@typescript-eslint/unbound-method': 'off',
+      'no-undefined': 'off'
     }
   }
 )

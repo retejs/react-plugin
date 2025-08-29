@@ -21,10 +21,10 @@ export function Search(props: { value: string, onChange(value: string): void, co
   return (
     <Component
       value={props.value}
-      onInput={e => {
+      onInput={(e: React.FormEvent<HTMLInputElement>) => {
         props.onChange((e.target as HTMLInputElement).value)
       }}
-      onPointerDown={e => {
+      onPointerDown={(e: React.PointerEvent) => {
         e.stopPropagation()
       }}
       data-testid="context-menu-search-input"
