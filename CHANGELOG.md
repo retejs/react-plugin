@@ -1,3 +1,10 @@
+## [2.1.2](https://github.com/retejs/react-plugin/compare/v2.1.1...v2.1.2) (2026-07-10)
+
+
+### Bug Fixes
+
+* **renderer:** flushSync createRoot mount for layout-ready DOM ([95db640](https://github.com/retejs/react-plugin/commit/95db64061940559f2bf5417640ebb95d89edbd56))
+
 ## [2.1.1](https://github.com/retejs/react-plugin/compare/v2.1.0...v2.1.1) (2026-07-10)
 
 
