@@ -1,5 +1,6 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
+import { flushSync } from 'react-dom'
 
 // React 18+ root type
 interface Root {
@@ -58,7 +59,9 @@ export function getRenderer(props?: { createRoot?: CreateRoot }): Renderer {
           roots.set(wrapper, root)
         }
 
-        root.render(element)
+        flushSync(() => {
+          root.render(element)
+        })
         return wrapper.firstElementChild ?? wrapper
       },
       unmount: (container: HTMLElement) => {
