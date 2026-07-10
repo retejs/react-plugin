@@ -8,6 +8,7 @@ const Input = styled.input<{ styles?: (props: any) => any }>`
   width: 100%;
   border-radius: 30px;
   background-color: white;
+  color: black;
   padding: 2px 6px;
   border: 1px solid #999;
   font-size: 110%;
