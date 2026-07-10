@@ -1,3 +1,10 @@
+## [2.1.1](https://github.com/retejs/react-plugin/compare/v2.1.0...v2.1.1) (2026-07-10)
+
+
+### Bug Fixes
+
+* set input control text color for dark color-scheme ([89be146](https://github.com/retejs/react-plugin/commit/89be146426e5132183b1f1d9139788f1e08cdc3e))
+
 # [2.1.0](https://github.com/retejs/react-plugin/compare/v2.0.7...v2.1.0) (2025-08-29)
 
 
